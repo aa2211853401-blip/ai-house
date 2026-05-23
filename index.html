@@ -87,6 +87,27 @@
     cursor: not-allowed;
   }
 
+  #calcBtn {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  #calcBtn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.1);
+  }
+
   header h1 {
     font-size: 1.5rem;
     font-weight: 700;
@@ -103,6 +124,51 @@
     color: var(--text-secondary);
   }
 
+  .main-tabs {
+    display: inline-flex;
+    gap: 4px;
+    margin-top: 14px;
+    padding: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .main-tab {
+    padding: 8px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+
+  .main-tab:hover {
+    color: var(--text-primary);
+  }
+
+  .main-tab.active {
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    box-shadow: 0 2px 12px var(--accent-glow);
+  }
+
+  .page-view {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .page-view.active {
+    display: flex;
+  }
+
   .chat-container {
     position: relative;
     z-index: 1;
@@ -117,10 +183,47 @@
     min-height: 0;
   }
 
+  .quick-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 0 4px;
+    flex-shrink: 0;
+  }
+
+  .quick-btn {
+    padding: 7px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
+  }
+
+  .quick-btn:hover:not(:disabled) {
+    color: var(--text-primary);
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .quick-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .quick-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
   .chat-history {
     flex: 1;
     overflow-y: auto;
-    padding: 24px 0;
+    padding: 16px 0 24px;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -250,6 +353,104 @@
     color: #fca5a5;
   }
 
+  .message.ai .bubble.md-content {
+    line-height: 1.65;
+  }
+
+  .message.ai .bubble.md-content > *:first-child {
+    margin-top: 0;
+  }
+
+  .message.ai .bubble.md-content > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .message.ai .bubble.md-content p {
+    margin: 0 0 10px;
+  }
+
+  .message.ai .bubble.md-content h1,
+  .message.ai .bubble.md-content h2,
+  .message.ai .bubble.md-content h3,
+  .message.ai .bubble.md-content h4 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin: 14px 0 8px;
+    line-height: 1.4;
+  }
+
+  .message.ai .bubble.md-content h1 { font-size: 1.125rem; }
+  .message.ai .bubble.md-content h2 { font-size: 1.0625rem; }
+  .message.ai .bubble.md-content h3 { font-size: 1rem; }
+  .message.ai .bubble.md-content h4 { font-size: 0.9375rem; }
+
+  .message.ai .bubble.md-content strong {
+    color: #f1f3f9;
+    font-weight: 600;
+  }
+
+  .message.ai .bubble.md-content ul,
+  .message.ai .bubble.md-content ol {
+    margin: 8px 0 10px;
+    padding-left: 1.4em;
+  }
+
+  .message.ai .bubble.md-content li {
+    margin: 4px 0;
+  }
+
+  .message.ai .bubble.md-content li::marker {
+    color: var(--text-secondary);
+  }
+
+  .message.ai .bubble.md-content code {
+    background: rgba(99, 102, 241, 0.15);
+    color: #c7d2fe;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.875em;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+  }
+
+  .message.ai .bubble.md-content pre {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    margin: 10px 0;
+    overflow-x: auto;
+  }
+
+  .message.ai .bubble.md-content pre code {
+    background: none;
+    padding: 0;
+    color: var(--text-primary);
+  }
+
+  .message.ai .bubble.md-content blockquote {
+    margin: 10px 0;
+    padding: 8px 12px;
+    border-left: 3px solid var(--accent);
+    color: var(--text-secondary);
+    background: rgba(99, 102, 241, 0.06);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .message.ai .bubble.md-content a {
+    color: #a5b4fc;
+    text-decoration: none;
+  }
+
+  .message.ai .bubble.md-content a:hover {
+    text-decoration: underline;
+  }
+
+  .message.ai .bubble.md-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 12px 0;
+  }
+
   .bubble.typing::after {
     content: "|";
     margin-left: 2px;
@@ -374,23 +575,422 @@
     40% { transform: scale(1); opacity: 1; }
   }
 
+  /* 房贷计算器弹窗 */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s, visibility 0.25s;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .calc-panel {
+    width: 100%;
+    max-width: 440px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+    transform: translateY(16px);
+    transition: transform 0.25s;
+  }
+
+  .modal-overlay.active .calc-panel {
+    transform: translateY(0);
+  }
+
+  .calc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 0;
+  }
+
+  .calc-header h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #e8eaed 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .calc-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    line-height: 1;
+  }
+
+  .calc-close:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+  }
+
+  .calc-body {
+    padding: 20px;
+  }
+
+  .calc-field {
+    margin-bottom: 16px;
+  }
+
+  .calc-field label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .calc-field input,
+  .calc-field select {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .calc-field input:focus,
+  .calc-field select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .calc-field select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239aa0b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  .calc-submit {
+    width: 100%;
+    height: 48px;
+    margin-top: 8px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  .calc-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px var(--accent-glow);
+  }
+
+  .calc-results {
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: none;
+  }
+
+  .calc-results.show {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .calc-results h3 {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .calc-result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .calc-result-item:last-child {
+    border-bottom: none;
+  }
+
+  .calc-result-item span:first-child {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .calc-result-item span:last-child {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .calc-result-item.highlight span:last-child {
+    color: #a5b4fc;
+    font-size: 1.125rem;
+  }
+
+  .calc-error {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-sm);
+    color: #fca5a5;
+    font-size: 0.875rem;
+    display: none;
+  }
+
+  .calc-error.show {
+    display: block;
+  }
+
+  /* 城市对比 */
+  .compare-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 16px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .compare-intro {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .compare-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .compare-field label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .compare-field input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .compare-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .compare-submit {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  .compare-submit:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px var(--accent-glow);
+  }
+
+  .compare-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .compare-loading {
+    display: none;
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .compare-loading.show {
+    display: block;
+  }
+
+  .compare-loading .typing-indicator {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .compare-error {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-sm);
+    color: #fca5a5;
+    font-size: 0.875rem;
+  }
+
+  .compare-error.show {
+    display: block;
+  }
+
+  .compare-table-wrap {
+    display: none;
+    margin-top: 24px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .compare-table-wrap.show {
+    display: block;
+  }
+
+  .compare-table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .compare-table th,
+  .compare-table td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.6;
+  }
+
+  .compare-table tr:last-child td,
+  .compare-table tr:last-child th {
+    border-bottom: none;
+  }
+
+  .compare-table thead th {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .compare-table thead th:first-child {
+    width: 100px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+  }
+
+  .compare-table thead th:nth-child(2) {
+    color: #a5b4fc;
+  }
+
+  .compare-table thead th:nth-child(3) {
+    color: #c4b5fd;
+  }
+
+  .compare-table tbody td:first-child {
+    color: var(--text-secondary);
+    font-weight: 500;
+    background: rgba(15, 17, 23, 0.3);
+    white-space: nowrap;
+  }
+
+  .compare-table tbody td {
+    color: var(--text-primary);
+  }
+
   @media (max-width: 600px) {
     header h1 { font-size: 1.25rem; }
-    header { padding-right: 80px; }
+    header { padding-left: 100px; padding-right: 80px; }
+    #calcBtn { left: 12px; padding: 6px 10px; font-size: 0.75rem; }
     #clearBtn { right: 12px; padding: 6px 10px; font-size: 0.75rem; }
     .bubble { max-width: 85%; }
     #sendBtn { min-width: 72px; padding: 0 16px; }
+    .compare-form { grid-template-columns: 1fr; }
+    .compare-table thead th:first-child { width: 80px; }
+    .compare-table th, .compare-table td { padding: 10px 12px; font-size: 0.8125rem; }
   }
   </style>
 </head>
 <body>
   <header>
+    <button id="calcBtn" type="button">房贷计算器</button>
     <h1>AI房产助手</h1>
-    <p>智能解答您的房产疑问</p>
+    <nav class="main-tabs">
+      <button class="main-tab active" type="button" data-tab="chat">AI问答</button>
+      <button class="main-tab" type="button" data-tab="compare">城市对比</button>
+    </nav>
+    <p id="headerSubtitle">智能解答您的房产疑问</p>
     <button id="clearBtn" type="button">清空对话</button>
   </header>
 
+  <div id="chatView" class="page-view active">
   <div class="chat-container">
+    <div class="quick-questions" id="quickQuestions">
+      <button class="quick-btn" type="button" data-question="首套房首付多少？">🏠 首套房首付多少？</button>
+      <button class="quick-btn" type="button" data-question="买房需要什么证件？">📋 买房需要什么证件？</button>
+      <button class="quick-btn" type="button" data-question="公积金怎么用？">💰 公积金怎么用？</button>
+      <button class="quick-btn" type="button" data-question="现在适合买房吗？">📈 现在适合买房吗？</button>
+      <button class="quick-btn" type="button" data-question="商贷和公积金贷款区别？">🏦 商贷和公积金贷款区别？</button>
+    </div>
     <div class="chat-history" id="chatHistory">
       <div class="welcome" id="welcome">
         <div class="welcome-icon">🏠</div>
@@ -410,13 +1010,97 @@
       <button id="sendBtn" type="button">发送</button>
     </div>
   </div>
+  </div>
 
+  <div id="compareView" class="page-view">
+    <div class="compare-container">
+      <p class="compare-intro">输入两个城市，AI 将从政策、房价、落户等多维度为您对比分析</p>
+      <div class="compare-form">
+        <div class="compare-field">
+          <label for="cityA">城市 A</label>
+          <input type="text" id="cityA" placeholder="例如：北京">
+        </div>
+        <div class="compare-field">
+          <label for="cityB">城市 B</label>
+          <input type="text" id="cityB" placeholder="例如：上海">
+        </div>
+      </div>
+      <button class="compare-submit" id="compareSubmit" type="button">开始对比</button>
+      <div class="compare-loading" id="compareLoading">
+        <div class="typing-indicator"><span></span><span></span><span></span></div>
+        正在分析对比数据，请稍候...
+      </div>
+      <div class="compare-error" id="compareError"></div>
+      <div class="compare-table-wrap" id="compareResults"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="calcModal">
+    <div class="calc-panel">
+      <div class="calc-header">
+        <h2>房贷计算器</h2>
+        <button class="calc-close" id="calcClose" type="button" aria-label="关闭">&times;</button>
+      </div>
+      <div class="calc-body">
+        <div class="calc-field">
+          <label for="totalPrice">房屋总价（万元）</label>
+          <input type="number" id="totalPrice" placeholder="例如：300" min="0" step="0.01">
+        </div>
+        <div class="calc-field">
+          <label for="downPayment">首付比例（%）</label>
+          <input type="number" id="downPayment" placeholder="例如：30" min="0" max="100" step="1" value="30">
+        </div>
+        <div class="calc-field">
+          <label for="loanYears">贷款年限</label>
+          <select id="loanYears">
+            <option value="10">10 年</option>
+            <option value="15">15 年</option>
+            <option value="20">20 年</option>
+            <option value="25">25 年</option>
+            <option value="30" selected>30 年</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label for="interestRate">贷款利率（%）</label>
+          <input type="number" id="interestRate" placeholder="例如：3.95" min="0" step="0.01" value="3.95">
+        </div>
+        <button class="calc-submit" id="calcSubmit" type="button">计算</button>
+        <div class="calc-error" id="calcError"></div>
+        <div class="calc-results" id="calcResults">
+          <h3>计算结果（等额本息）</h3>
+          <div class="calc-result-item">
+            <span>贷款金额</span>
+            <span id="resultLoan">-</span>
+          </div>
+          <div class="calc-result-item highlight">
+            <span>每月还款</span>
+            <span id="resultMonthly">-</span>
+          </div>
+          <div class="calc-result-item">
+            <span>总利息</span>
+            <span id="resultInterest">-</span>
+          </div>
+          <div class="calc-result-item">
+            <span>总还款金额</span>
+            <span id="resultTotal">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
   <script>
   const API_KEY = "sk-f2ac4dd7775c4afd81f5ba01a5167518";
   const MODEL = "deepseek-chat";
   const API_URL = "https://api.deepseek.com/v1/chat/completions";
   const SYSTEM_PROMPT =
     "你是一个专业的房产顾问，帮助用户解答关于买房、卖房、贷款、政策等问题，回答要专业、简洁、实用";
+  const COMPARE_SYSTEM_PROMPT =
+    "你是专业房产顾问。对比两个城市的买房条件，必须返回纯JSON，不要markdown代码块，不要其他文字。"
+    + '格式：{"rows":[{"label":"限购政策","cityA":"内容","cityB":"内容"}]}'
+    + "。rows必须包含且仅包含5项，label依次为：限购政策、首付比例、落户要求、房价水平、适合人群。内容简洁专业，每项50-120字。";
 
   const STORAGE_KEY = "ai-house-chat";
 
@@ -424,10 +1108,31 @@
   const questionInput = document.getElementById("questionInput");
   const sendBtn = document.getElementById("sendBtn");
   const clearBtn = document.getElementById("clearBtn");
+  const quickBtns = document.querySelectorAll(".quick-btn");
 
   let conversationHistory = [];
   let displayMessages = [];
   let isLoading = false;
+
+  if (typeof marked !== "undefined") {
+    marked.setOptions({ breaks: true, gfm: true });
+  }
+
+  function renderMarkdown(text) {
+    if (typeof marked === "undefined") return text;
+    const html = marked.parse(text);
+    return typeof DOMPurify !== "undefined" ? DOMPurify.sanitize(html) : html;
+  }
+
+  function setBubbleContent(bubble, role, content, isError = false) {
+    if (role === "ai" && !isError) {
+      bubble.innerHTML = renderMarkdown(content);
+      bubble.classList.add("md-content");
+    } else {
+      bubble.textContent = content;
+      bubble.classList.remove("md-content");
+    }
+  }
 
   function saveChat() {
     localStorage.setItem(
@@ -495,6 +1200,7 @@
     sendBtn.disabled = !enabled;
     questionInput.disabled = !enabled;
     clearBtn.disabled = !enabled || displayMessages.length === 0;
+    quickBtns.forEach((btn) => { btn.disabled = !enabled; });
   }
 
   function createMessage(role, content, isError = false) {
@@ -507,7 +1213,7 @@
 
     const bubble = document.createElement("div");
     bubble.className = "bubble" + (isError ? " error" : "");
-    bubble.textContent = content;
+    setBubbleContent(bubble, role, content, isError);
 
     msg.appendChild(avatar);
     msg.appendChild(bubble);
@@ -539,6 +1245,15 @@
     const msg = createMessage("ai", "", isError);
     chatHistory.appendChild(msg);
     const bubble = msg.querySelector(".bubble");
+
+    if (isError) {
+      bubble.textContent = text;
+      displayMessages.push({ role: "ai", content: text, isError: true });
+      saveChat();
+      return;
+    }
+
+    bubble.classList.remove("md-content");
     bubble.classList.add("typing");
 
     const totalMs = Math.min(4000, Math.max(800, text.length * 25));
@@ -550,8 +1265,8 @@
       await new Promise((r) => setTimeout(r, 30));
     }
 
-    bubble.textContent = text;
     bubble.classList.remove("typing");
+    setBubbleContent(bubble, "ai", text);
 
     displayMessages.push({ role: "ai", content: text, isError });
     saveChat();
@@ -602,8 +1317,8 @@
     return reply;
   }
 
-  async function sendMessage() {
-    const text = questionInput.value.trim();
+  async function sendMessage(overrideText) {
+    const text = (overrideText ?? questionInput.value).trim();
     if (!text || isLoading) return;
 
     document.getElementById("welcome")?.remove();
@@ -611,8 +1326,10 @@
     chatHistory.appendChild(createMessage("user", text));
     displayMessages.push({ role: "user", content: text });
     saveChat();
-    questionInput.value = "";
-    autoResize(questionInput);
+    if (overrideText === undefined) {
+      questionInput.value = "";
+      autoResize(questionInput);
+    }
     scrollToBottom();
 
     isLoading = true;
@@ -637,8 +1354,12 @@
     }
   }
 
-  sendBtn.addEventListener("click", sendMessage);
+  sendBtn.addEventListener("click", () => sendMessage());
   clearBtn.addEventListener("click", clearChat);
+
+  quickBtns.forEach((btn) => {
+    btn.addEventListener("click", () => sendMessage(btn.dataset.question));
+  });
 
   questionInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -651,6 +1372,236 @@
 
   loadChat();
   questionInput.focus();
+
+  // 房贷计算器
+  const calcModal = document.getElementById("calcModal");
+  const calcBtn = document.getElementById("calcBtn");
+  const calcClose = document.getElementById("calcClose");
+  const calcSubmit = document.getElementById("calcSubmit");
+  const calcError = document.getElementById("calcError");
+  const calcResults = document.getElementById("calcResults");
+
+  function formatMoney(num) {
+    return num.toLocaleString("zh-CN", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
+  function openCalcModal() {
+    calcModal.classList.add("active");
+    calcError.classList.remove("show");
+    calcResults.classList.remove("show");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeCalcModal() {
+    calcModal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function calculateMortgage() {
+    const totalPrice = parseFloat(document.getElementById("totalPrice").value);
+    const downPayment = parseFloat(document.getElementById("downPayment").value);
+    const years = parseInt(document.getElementById("loanYears").value, 10);
+    const annualRate = parseFloat(document.getElementById("interestRate").value);
+
+    calcError.classList.remove("show");
+    calcResults.classList.remove("show");
+
+    if (!totalPrice || totalPrice <= 0) {
+      calcError.textContent = "请输入有效的房屋总价";
+      calcError.classList.add("show");
+      return;
+    }
+    if (isNaN(downPayment) || downPayment < 0 || downPayment >= 100) {
+      calcError.textContent = "首付比例需在 0% ~ 99% 之间";
+      calcError.classList.add("show");
+      return;
+    }
+    if (isNaN(annualRate) || annualRate < 0) {
+      calcError.textContent = "请输入有效的贷款利率";
+      calcError.classList.add("show");
+      return;
+    }
+
+    const loanWan = totalPrice * (1 - downPayment / 100);
+    const principal = loanWan * 10000;
+    const months = years * 12;
+    const monthlyRate = annualRate / 100 / 12;
+
+    let monthlyPayment;
+    if (monthlyRate === 0) {
+      monthlyPayment = principal / months;
+    } else {
+      const factor = Math.pow(1 + monthlyRate, months);
+      monthlyPayment = (principal * monthlyRate * factor) / (factor - 1);
+    }
+
+    const totalRepayment = monthlyPayment * months;
+    const totalInterest = totalRepayment - principal;
+
+    document.getElementById("resultLoan").textContent = `${formatMoney(loanWan)} 万元`;
+    document.getElementById("resultMonthly").textContent = `${formatMoney(monthlyPayment)} 元`;
+    document.getElementById("resultInterest").textContent = `${formatMoney(totalInterest / 10000)} 万元`;
+    document.getElementById("resultTotal").textContent = `${formatMoney(totalRepayment / 10000)} 万元`;
+    calcResults.classList.add("show");
+  }
+
+  calcBtn.addEventListener("click", openCalcModal);
+  calcClose.addEventListener("click", closeCalcModal);
+  calcSubmit.addEventListener("click", calculateMortgage);
+  calcModal.addEventListener("click", (e) => {
+    if (e.target === calcModal) closeCalcModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && calcModal.classList.contains("active")) {
+      closeCalcModal();
+    }
+  });
+
+  // Tab 切换
+  const chatView = document.getElementById("chatView");
+  const compareView = document.getElementById("compareView");
+  const headerSubtitle = document.getElementById("headerSubtitle");
+  const mainTabs = document.querySelectorAll(".main-tab");
+  const compareSubmit = document.getElementById("compareSubmit");
+  const compareLoading = document.getElementById("compareLoading");
+  const compareError = document.getElementById("compareError");
+  const compareResults = document.getElementById("compareResults");
+  const cityAInput = document.getElementById("cityA");
+  const cityBInput = document.getElementById("cityB");
+  let isCompareLoading = false;
+
+  function switchTab(tab) {
+    mainTabs.forEach((t) => t.classList.toggle("active", t.dataset.tab === tab));
+    chatView.classList.toggle("active", tab === "chat");
+    compareView.classList.toggle("active", tab === "compare");
+    clearBtn.style.display = tab === "chat" ? "" : "none";
+    headerSubtitle.textContent =
+      tab === "chat" ? "智能解答您的房产疑问" : "多维度对比城市买房政策";
+    if (tab === "chat") questionInput.focus();
+  }
+
+  mainTabs.forEach((tab) => {
+    tab.addEventListener("click", () => switchTab(tab.dataset.tab));
+  });
+
+  function escapeHtml(text) {
+    const el = document.createElement("div");
+    el.textContent = text;
+    return el.innerHTML;
+  }
+
+  function parseCompareResponse(text) {
+    const cleaned = text.replace(/```json\s?|```/gi, "").trim();
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+    if (start === -1 || end === -1) throw new Error("返回格式无效，请重试");
+    return JSON.parse(cleaned.slice(start, end + 1));
+  }
+
+  function renderCompareTable(cityA, cityB, rows) {
+    const body = rows
+      .map(
+        (row) => `
+      <tr>
+        <td>${escapeHtml(row.label || "")}</td>
+        <td>${escapeHtml(row.cityA || "")}</td>
+        <td>${escapeHtml(row.cityB || "")}</td>
+      </tr>`
+      )
+      .join("");
+
+    compareResults.innerHTML = `
+      <div class="compare-table-scroll">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>对比项</th>
+              <th>${escapeHtml(cityA)}</th>
+              <th>${escapeHtml(cityB)}</th>
+            </tr>
+          </thead>
+          <tbody>${body}</tbody>
+        </table>
+      </div>`;
+    compareResults.classList.add("show");
+  }
+
+  async function callCompareAPI(cityA, cityB) {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: "system", content: COMPARE_SYSTEM_PROMPT },
+          { role: "user", content: `请对比城市：${cityA} 和 ${cityB}` },
+        ],
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error?.message || `请求失败（${response.status}），请稍后重试`);
+    }
+
+    const reply = data.choices?.[0]?.message?.content;
+    if (!reply) throw new Error("未收到有效回复，请重试");
+    return reply;
+  }
+
+  async function startCompare() {
+    const cityA = cityAInput.value.trim();
+    const cityB = cityBInput.value.trim();
+
+    compareError.classList.remove("show");
+    compareResults.classList.remove("show");
+
+    if (!cityA || !cityB) {
+      compareError.textContent = "请输入两个城市名称";
+      compareError.classList.add("show");
+      return;
+    }
+    if (cityA === cityB) {
+      compareError.textContent = "请输入两个不同的城市";
+      compareError.classList.add("show");
+      return;
+    }
+    if (isCompareLoading) return;
+
+    isCompareLoading = true;
+    compareSubmit.disabled = true;
+    compareLoading.classList.add("show");
+
+    try {
+      const reply = await callCompareAPI(cityA, cityB);
+      const parsed = parseCompareResponse(reply);
+      if (!parsed.rows || !Array.isArray(parsed.rows)) {
+        throw new Error("对比数据格式无效，请重试");
+      }
+      renderCompareTable(cityA, cityB, parsed.rows);
+    } catch (err) {
+      compareError.textContent = err.message || "对比失败，请稍后重试";
+      compareError.classList.add("show");
+    } finally {
+      isCompareLoading = false;
+      compareSubmit.disabled = false;
+      compareLoading.classList.remove("show");
+    }
+  }
+
+  compareSubmit.addEventListener("click", startCompare);
+  cityAInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") startCompare();
+  });
+  cityBInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") startCompare();
+  });
   </script>
 </body>
 </html>
