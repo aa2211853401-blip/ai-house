@@ -635,6 +635,244 @@
     opacity: 0.8;
   }
 
+  /* ========== 看房笔记 ========== */
+  .notes-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .notes-intro {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .notes-form {
+    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 28px;
+  }
+
+  .notes-form h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+
+  .notes-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .notes-field.full {
+    grid-column: 1 / -1;
+  }
+
+  .notes-field label {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+
+  .notes-field input,
+  .notes-field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .notes-field textarea {
+    min-height: 88px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  .notes-field input:focus,
+  .notes-field textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .notes-field input:read-only {
+    opacity: 0.85;
+    cursor: default;
+    color: #a5b4fc;
+  }
+
+  .notes-add-btn {
+    width: 100%;
+    height: 48px;
+    margin-top: 18px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  .notes-add-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px var(--accent-glow);
+  }
+
+  .notes-list-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  .notes-empty {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+  }
+
+  .notes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .note-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    animation: fadeIn 0.3s ease;
+    transition: border-color 0.2s;
+  }
+
+  .note-card:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+  }
+
+  .note-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .note-card-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .note-delete {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .note-delete:hover {
+    color: #ef4444;
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+  }
+
+  .note-address {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .note-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .note-stat {
+    padding: 6px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+
+  .note-stat strong {
+    color: #a5b4fc;
+    font-weight: 600;
+  }
+
+  .note-remark {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 14px;
+    padding: 12px;
+    background: rgba(15, 17, 23, 0.35);
+    border-radius: var(--radius-sm);
+  }
+
+  .note-ask-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    color: var(--accent-hover);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s, transform 0.15s;
+  }
+
+  .note-ask-btn:hover:not(:disabled) {
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .note-ask-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
   .message.ai .bubble.error {
     border-color: #ef4444;
     color: #fca5a5;
@@ -2237,6 +2475,9 @@
     .compare-table thead th:first-child { width: 80px; }
     .compare-table th, .compare-table td { padding: 10px 12px; font-size: 0.8125rem; }
     .message-body { max-width: 85%; }
+    .notes-container { padding: 24px 16px; }
+    .notes-form { padding: 18px; }
+    .notes-form-grid { grid-template-columns: 1fr; }
     .favorite-card { padding: 18px; }
     .favorites-container { padding: 24px 16px; }
     .property-rec-panel { margin-left: 0; }
@@ -2273,6 +2514,7 @@
       <button class="main-tab" type="button" data-tab="listings">房源推荐</button>
       <button class="main-tab" type="button" data-tab="region">区域分析</button>
       <button class="main-tab" type="button" data-tab="compare">城市对比</button>
+      <button class="main-tab" type="button" data-tab="notes">看房笔记</button>
       <button class="main-tab" type="button" data-tab="favorites">收藏</button>
     </nav>
   </div>
@@ -2369,6 +2611,45 @@
       </div>
       <div class="compare-error" id="compareError"></div>
       <div class="compare-table-wrap" id="compareResults"></div>
+    </div>
+  </div>
+
+  <div id="notesView" class="page-view">
+    <div class="notes-container">
+      <p class="notes-intro">记录看过的房源，随时让 AI 帮您分析</p>
+      <form class="notes-form" id="notesForm">
+        <h3>添加房源</h3>
+        <div class="notes-form-grid">
+          <div class="notes-field">
+            <label for="noteCommunity">小区名称</label>
+            <input type="text" id="noteCommunity" placeholder="例如：万科城市花园" required>
+          </div>
+          <div class="notes-field">
+            <label for="noteAddress">地址</label>
+            <input type="text" id="noteAddress" placeholder="例如：朝阳区望京西路" required>
+          </div>
+          <div class="notes-field">
+            <label for="noteArea">面积（㎡）</label>
+            <input type="number" id="noteArea" placeholder="例如：89" min="0" step="0.01" required>
+          </div>
+          <div class="notes-field">
+            <label for="noteTotalPrice">总价（万元）</label>
+            <input type="number" id="noteTotalPrice" placeholder="例如：520" min="0" step="0.01" required>
+          </div>
+          <div class="notes-field">
+            <label for="noteUnitPrice">单价（元/㎡）</label>
+            <input type="text" id="noteUnitPrice" placeholder="自动计算" readonly>
+          </div>
+          <div class="notes-field full">
+            <label for="noteRemark">优缺点备注</label>
+            <textarea id="noteRemark" placeholder="例如：采光好、地铁近；但楼层偏高、物业费较贵"></textarea>
+          </div>
+        </div>
+        <button class="notes-add-btn" type="submit">添加房源</button>
+      </form>
+      <p class="notes-list-title">已记录房源</p>
+      <div id="notesEmpty" class="notes-empty">暂无看房笔记，添加第一套房源开始记录吧</div>
+      <div class="notes-list" id="notesList"></div>
     </div>
   </div>
 
@@ -2499,6 +2780,7 @@
   const FAVORITES_STORAGE_KEY = "aih-fav-v2";
   const PROPERTY_LISTINGS_KEY = "aih-listings-v2";
   const PROPERTY_FAV_KEY = "aih-prop-fav-v2";
+  const NOTES_STORAGE_KEY = "aih-notes-v2";
   const MAX_CONVERSATION_HISTORY = 20;
   const MAX_DISPLAY_MESSAGES = 60;
 
@@ -2630,6 +2912,7 @@
   let conversationHistory = [];
   let displayMessages = [];
   let favorites = [];
+  let houseNotes = [];
   let isLoading = false;
 
   function generateMessageId() {
@@ -2680,6 +2963,178 @@
       localStorage.removeItem(FAVORITES_STORAGE_KEY);
     }
     renderFavorites();
+  }
+
+  /* ========== 看房笔记 ========== */
+  function computeNoteUnitPrice(area, totalPriceWan) {
+    if (!area || area <= 0 || !totalPriceWan || totalPriceWan <= 0) return null;
+    return Math.round((totalPriceWan * 10000) / area);
+  }
+
+  function updateNoteUnitPrice() {
+    const noteArea = document.getElementById("noteArea");
+    const noteTotalPrice = document.getElementById("noteTotalPrice");
+    const noteUnitPrice = document.getElementById("noteUnitPrice");
+    const area = parseFloat(noteArea?.value);
+    const totalPrice = parseFloat(noteTotalPrice?.value);
+    if (!noteUnitPrice) return;
+    const unit = computeNoteUnitPrice(area, totalPrice);
+    noteUnitPrice.value = unit ? unit.toLocaleString("zh-CN") : "";
+  }
+
+  function saveNotes() {
+    localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(houseNotes));
+  }
+
+  function loadNotes() {
+    try {
+      const saved = localStorage.getItem(NOTES_STORAGE_KEY);
+      houseNotes = saved ? JSON.parse(saved) : [];
+      if (!Array.isArray(houseNotes)) houseNotes = [];
+    } catch {
+      houseNotes = [];
+      localStorage.removeItem(NOTES_STORAGE_KEY);
+    }
+    renderNotes();
+  }
+
+  function removeNote(id) {
+    houseNotes = houseNotes.filter((n) => n.id !== id);
+    saveNotes();
+    renderNotes();
+  }
+
+  function formatNoteForAI(note) {
+    const parts = [
+      `小区：${note.community}`,
+      `地址：${note.address}`,
+      `面积：${note.area}㎡`,
+      `总价：${note.totalPrice}万元`,
+    ];
+    if (note.unitPrice) {
+      parts.push(`单价：${note.unitPrice.toLocaleString("zh-CN")}元/㎡`);
+    }
+    if (note.remark) parts.push(`备注：${note.remark}`);
+    return parts.join("，");
+  }
+
+  function askAiAboutNote(note) {
+    if (isLoading) return;
+    switchTab("chat");
+    sendMessage(`帮我分析这套房：${formatNoteForAI(note)}`);
+  }
+
+  function renderNotes() {
+    const notesList = document.getElementById("notesList");
+    const notesEmpty = document.getElementById("notesEmpty");
+    if (!notesList || !notesEmpty) return;
+
+    notesList.innerHTML = "";
+    notesEmpty.style.display = houseNotes.length === 0 ? "block" : "none";
+
+    houseNotes.forEach((note) => {
+      const card = document.createElement("article");
+      card.className = "note-card";
+
+      const header = document.createElement("div");
+      header.className = "note-card-header";
+
+      const title = document.createElement("h4");
+      title.textContent = note.community || "未命名小区";
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "note-delete";
+      deleteBtn.type = "button";
+      deleteBtn.textContent = "删除";
+      deleteBtn.addEventListener("click", () => removeNote(note.id));
+
+      header.appendChild(title);
+      header.appendChild(deleteBtn);
+
+      const address = document.createElement("p");
+      address.className = "note-address";
+      address.textContent = note.address || "";
+
+      const stats = document.createElement("div");
+      stats.className = "note-stats";
+
+      const areaStat = document.createElement("span");
+      areaStat.className = "note-stat";
+      areaStat.innerHTML = `面积 <strong>${note.area}</strong> ㎡`;
+
+      const totalStat = document.createElement("span");
+      totalStat.className = "note-stat";
+      totalStat.innerHTML = `总价 <strong>${note.totalPrice}</strong> 万`;
+
+      const unitStat = document.createElement("span");
+      unitStat.className = "note-stat";
+      const unitText = note.unitPrice
+        ? `${note.unitPrice.toLocaleString("zh-CN")} 元/㎡`
+        : "—";
+      unitStat.innerHTML = `单价 <strong>${unitText}</strong>`;
+
+      stats.appendChild(areaStat);
+      stats.appendChild(totalStat);
+      stats.appendChild(unitStat);
+
+      card.appendChild(header);
+      card.appendChild(address);
+      card.appendChild(stats);
+
+      if (note.remark) {
+        const remark = document.createElement("div");
+        remark.className = "note-remark";
+        remark.textContent = note.remark;
+        card.appendChild(remark);
+      }
+
+      const askBtn = document.createElement("button");
+      askBtn.className = "note-ask-btn";
+      askBtn.type = "button";
+      askBtn.textContent = "问AI";
+      askBtn.disabled = isLoading;
+      askBtn.addEventListener("click", () => askAiAboutNote(note));
+
+      card.appendChild(askBtn);
+      notesList.appendChild(card);
+    });
+  }
+
+  function initNotes() {
+    const notesForm = document.getElementById("notesForm");
+    const noteArea = document.getElementById("noteArea");
+    const noteTotalPrice = document.getElementById("noteTotalPrice");
+
+    noteArea?.addEventListener("input", updateNoteUnitPrice);
+    noteTotalPrice?.addEventListener("input", updateNoteUnitPrice);
+
+    notesForm?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const community = document.getElementById("noteCommunity").value.trim();
+      const address = document.getElementById("noteAddress").value.trim();
+      const area = parseFloat(document.getElementById("noteArea").value);
+      const totalPrice = parseFloat(document.getElementById("noteTotalPrice").value);
+      const remark = document.getElementById("noteRemark").value.trim();
+      const unitPrice = computeNoteUnitPrice(area, totalPrice);
+
+      if (!community || !address || !area || area <= 0 || !totalPrice || totalPrice <= 0) return;
+
+      houseNotes.unshift({
+        id: generateMessageId(),
+        community,
+        address,
+        area,
+        totalPrice,
+        unitPrice,
+        remark,
+        createdAt: Date.now(),
+      });
+
+      saveNotes();
+      renderNotes();
+      notesForm.reset();
+      document.getElementById("noteUnitPrice").value = "";
+    });
   }
 
   function updateFavoriteButtons(messageId) {
@@ -3486,6 +3941,8 @@
   questionInput.addEventListener("input", () => autoResize(questionInput));
 
   loadFavorites();
+  loadNotes();
+  initNotes();
   loadPropertyFavorites();
   loadLatestListings();
   initFeatureGrid();
@@ -3691,6 +4148,7 @@
   const listingsView = document.getElementById("listingsView");
   const regionView = document.getElementById("regionView");
   const compareView = document.getElementById("compareView");
+  const notesView = document.getElementById("notesView");
   const favoritesView = document.getElementById("favoritesView");
   const headerSubtitle = document.getElementById("headerSubtitle");
   const mainTabs = document.querySelectorAll(".main-tab");
@@ -3708,6 +4166,7 @@
     listingsView.classList.toggle("active", tab === "listings");
     regionView.classList.toggle("active", tab === "region");
     compareView.classList.toggle("active", tab === "compare");
+    notesView.classList.toggle("active", tab === "notes");
     favoritesView.classList.toggle("active", tab === "favorites");
     clearBtn.style.display = tab === "chat" ? "" : "none";
     const subtitles = {
@@ -3715,11 +4174,13 @@
       listings: "AI 智能匹配推荐房源",
       region: "AI 深度区域分析报告",
       compare: "多维度对比城市买房政策",
+      notes: "记录房源，AI 智能分析",
       favorites: "收藏的 AI 问答记录",
     };
     headerSubtitle.textContent = subtitles[tab] || subtitles.chat;
     if (tab === "chat") questionInput.focus();
     if (tab === "favorites") renderFavorites();
+    if (tab === "notes") renderNotes();
     if (tab === "listings") renderListingsPage();
   }
 
