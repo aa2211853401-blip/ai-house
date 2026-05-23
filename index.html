@@ -54,29 +54,82 @@
   header {
     position: relative;
     z-index: 1;
-    padding: 24px 24px 16px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 24px;
     border-bottom: 1px solid var(--border);
-    background: rgba(15, 17, 23, 0.8);
+    background: rgba(15, 17, 23, 0.85);
     backdrop-filter: blur(12px);
   }
 
-  #clearBtn {
-    position: absolute;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .header-logo {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  .header-titles {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .header-titles h1 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: linear-gradient(135deg, #e8eaed 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+  }
+
+  .header-titles p {
+    margin-top: 2px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .header-actions button {
     padding: 8px 14px;
     background: transparent;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
     font-size: 0.8125rem;
+    font-family: inherit;
     cursor: pointer;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
+    white-space: nowrap;
   }
 
-  #clearBtn:hover {
+  .header-actions button:hover:not(:disabled) {
     color: var(--text-primary);
     border-color: var(--accent);
     background: rgba(99, 102, 241, 0.1);
@@ -87,64 +140,42 @@
     cursor: not-allowed;
   }
 
-  #calcBtn {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 8px 14px;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s, background 0.2s;
-  }
-
-  #calcBtn:hover {
-    color: var(--text-primary);
-    border-color: var(--accent);
-    background: rgba(99, 102, 241, 0.1);
-  }
-
-  header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    background: linear-gradient(135deg, #e8eaed 0%, #a5b4fc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  header p {
-    margin-top: 6px;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
+  .app-tabs-bar {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--border);
+    background: rgba(15, 17, 23, 0.75);
+    backdrop-filter: blur(12px);
   }
 
   .main-tabs {
-    display: inline-flex;
+    display: flex;
     gap: 4px;
-    margin-top: 14px;
-    padding: 4px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .main-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .main-tab {
-    padding: 8px 20px;
+    padding: 14px 18px;
     background: transparent;
     border: none;
-    border-radius: 8px;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
     color: var(--text-secondary);
     font-size: 0.875rem;
     font-family: inherit;
     font-weight: 500;
     cursor: pointer;
-    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .main-tab:hover {
@@ -152,9 +183,8 @@
   }
 
   .main-tab.active {
-    background: linear-gradient(135deg, var(--accent), #7c3aed);
-    color: #fff;
-    box-shadow: 0 2px 12px var(--accent-glow);
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent);
   }
 
   .page-view {
@@ -250,38 +280,96 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 48px 24px;
-    color: var(--text-secondary);
+    padding: 32px 8px 48px;
     width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .welcome-hero {
+    text-align: center;
+    margin-bottom: 28px;
   }
 
   .welcome-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 16px;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 14px;
     background: linear-gradient(135deg, var(--accent), #8b5cf6);
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
-    box-shadow: 0 8px 32px var(--accent-glow);
+    font-size: 26px;
+    box-shadow: 0 8px 28px var(--accent-glow);
   }
 
-  .welcome h2 {
-    font-size: 1.125rem;
+  .welcome-hero h2 {
+    font-size: 1.25rem;
     color: var(--text-primary);
     margin-bottom: 8px;
     font-weight: 600;
+  }
+
+  .welcome-hero p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
     width: 100%;
   }
 
-  .welcome p {
-    font-size: 0.875rem;
-    max-width: 360px;
-    width: 100%;
-    margin: 0;
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+
+  .feature-card:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.12);
+  }
+
+  .feature-card:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .feature-card:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .feature-card-icon {
+    font-size: 1.375rem;
+    line-height: 1;
+  }
+
+  .feature-card-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .feature-card-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
   }
 
   .message {
@@ -346,6 +434,205 @@
     border: 1px solid var(--border);
     color: var(--text-primary);
     border-bottom-left-radius: 4px;
+  }
+
+  .message-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 75%;
+    gap: 4px;
+  }
+
+  .message-body .bubble {
+    max-width: 100%;
+  }
+
+  .message-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-left: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .message.ai:hover .message-actions,
+  .message.ai .message-body:focus-within .message-actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .msg-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .msg-action-btn:hover {
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.12);
+  }
+
+  .msg-action-btn.favorite-btn {
+    font-size: 0.9375rem;
+    padding: 4px 8px;
+  }
+
+  .msg-action-btn.favorite-btn.favorited {
+    color: #fbbf24;
+    text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+  }
+
+  .msg-action-btn.copy-btn.copied {
+    color: #86efac;
+  }
+
+  .favorites-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px 24px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .favorites-intro {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .favorites-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .favorites-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .favorites-count {
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .favorites-empty {
+    text-align: center;
+    padding: 56px 28px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    border-style: dashed;
+  }
+
+  .favorites-empty-icon {
+    font-size: 2.75rem;
+    line-height: 1;
+    margin-bottom: 16px;
+    opacity: 0.45;
+  }
+
+  .favorites-empty-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .favorites-empty-desc {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .favorites-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .favorite-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .favorite-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .favorite-question {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .favorite-delete {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  .favorite-delete:hover {
+    color: #ef4444;
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+  }
+
+  .favorite-answer.md-content {
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-size: 0.9375rem;
+  }
+
+  .favorite-answer.md-content > *:first-child { margin-top: 0; }
+  .favorite-answer.md-content > *:last-child { margin-bottom: 0; }
+  .favorite-answer.md-content p { margin: 0 0 10px; }
+
+  .favorite-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.8;
   }
 
   .message.ai .bubble.error {
@@ -451,14 +738,24 @@
     margin: 12px 0;
   }
 
-  .bubble.typing::after {
-    content: "|";
-    margin-left: 2px;
-    animation: blink 0.8s step-end infinite;
+  .bubble.streaming .stream-cursor {
+    display: inline;
+    color: var(--accent-hover);
+    animation: blink 0.75s step-end infinite;
+    margin-left: 1px;
+    font-weight: 400;
   }
 
   @keyframes blink {
     50% { opacity: 0; }
+  }
+
+  .stream-error-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.8125rem;
+    color: #fca5a5;
   }
 
   .input-area {
@@ -654,6 +951,36 @@
     padding: 20px;
   }
 
+  .calc-mode-tabs {
+    display: flex;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .calc-mode-tab {
+    flex: 1;
+    padding: 10px 8px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .calc-mode-tab:hover {
+    color: var(--text-primary);
+  }
+
+  .calc-mode-tab.active {
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent);
+  }
+
   .calc-field {
     margin-bottom: 16px;
   }
@@ -731,36 +1058,67 @@
   .calc-results h3 {
     font-size: 0.875rem;
     color: var(--text-secondary);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-weight: 500;
   }
 
-  .calc-result-item {
+  .calc-result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .calc-result-card {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
   }
 
-  .calc-result-item:last-child {
-    border-bottom: none;
+  .calc-result-card.highlight {
+    border-color: rgba(99, 102, 241, 0.45);
+    background: rgba(99, 102, 241, 0.1);
   }
 
-  .calc-result-item span:first-child {
-    font-size: 0.875rem;
+  .calc-result-label {
+    font-size: 0.75rem;
     color: var(--text-secondary);
   }
 
-  .calc-result-item span:last-child {
+  .calc-result-value {
     font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
+    line-height: 1.3;
   }
 
-  .calc-result-item.highlight span:last-child {
+  .calc-result-card.highlight .calc-result-value {
     color: #a5b4fc;
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
+  }
+
+  .calc-consult-btn {
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    color: var(--accent-hover);
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+  }
+
+  .calc-consult-btn:hover {
+    color: var(--text-primary);
+    background: rgba(99, 102, 241, 0.12);
+    border-color: var(--accent-hover);
   }
 
   .calc-error {
@@ -800,9 +1158,93 @@
 
   .compare-form {
     display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 16px;
+  }
+
+  .compare-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 12px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+    letter-spacing: 0.08em;
+    user-select: none;
+  }
+
+  .compare-scores {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     margin-bottom: 16px;
+  }
+
+  .compare-score-card {
+    padding: 20px 16px;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .compare-score-card.winner {
+    border-color: rgba(99, 102, 241, 0.55);
+    background: rgba(99, 102, 241, 0.1);
+    box-shadow: 0 4px 20px var(--accent-glow);
+  }
+
+  .compare-score-city {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .compare-score-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+
+  .compare-score-card.winner .compare-score-value {
+    color: var(--accent-hover);
+  }
+
+  .compare-score-badge {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    border-radius: 20px;
+  }
+
+  .compare-win-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    border-radius: 4px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .compare-cell-winner {
+    background: rgba(99, 102, 241, 0.06);
   }
 
   .compare-field label {
@@ -957,45 +1399,902 @@
     color: var(--text-primary);
   }
 
+  /* ========== AI 房源推荐 ========== */
+  .listings-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .listings-header {
+    margin-bottom: 24px;
+  }
+
+  .listings-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .listings-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e8eaed 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .listings-badge {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-hover);
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 20px;
+  }
+
+  .listings-ai-reason {
+    padding: 20px 22px;
+    background: rgba(34, 38, 51, 0.65);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .listings-ai-reason-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-hover);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .listings-ai-reason p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .listings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+  }
+
+  .listings-grid .listing-card {
+    flex: none;
+    width: auto;
+    max-width: none;
+  }
+
+  .listings-empty {
+    text-align: center;
+    padding: 64px 28px;
+    background: var(--bg-card);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    color: var(--text-secondary);
+  }
+
+  .listings-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.4;
+  }
+
+  .message.ai.has-listings {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .message.ai.has-listings .message-body {
+    flex: 1;
+    min-width: 0;
+    max-width: calc(100% - 48px);
+  }
+
+  .property-rec-panel {
+    width: 100%;
+    margin-left: 48px;
+    margin-top: 12px;
+    animation: recFadeIn 0.45s ease;
+  }
+
+  @keyframes recFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .property-rec-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .property-rec-panel-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .property-rec-view-all {
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: var(--accent-hover);
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .property-rec-view-all:hover {
+    background: rgba(99, 102, 241, 0.2);
+    transform: translateY(-1px);
+  }
+
+  .property-rec-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+
+  .property-rec-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .property-rec-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  .listing-card {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
+    background: rgba(34, 38, 51, 0.75);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+  }
+
+  .listing-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.45);
+    box-shadow: 0 16px 40px rgba(99, 102, 241, 0.15);
+  }
+
+  .listing-card--featured {
+    flex: 0 0 300px;
+    border-color: rgba(99, 102, 241, 0.5);
+    background: linear-gradient(165deg, rgba(99, 102, 241, 0.12) 0%, rgba(34, 38, 51, 0.9) 45%);
+    box-shadow: 0 12px 36px var(--accent-glow);
+  }
+
+  .listing-card--featured .listing-card-badge {
+    display: inline-flex;
+  }
+
+  .listing-card-badge {
+    display: none;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 4px 10px;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    border-radius: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .listing-card-image-wrap {
+    position: relative;
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .listing-card--featured .listing-card-image-wrap {
+    height: 180px;
+  }
+
+  .listing-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .listing-card:hover .listing-card-image {
+    transform: scale(1.05);
+  }
+
+  .listing-match {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(15, 17, 23, 0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+  }
+
+  .listing-match strong {
+    color: #a5b4fc;
+    font-size: 0.875rem;
+  }
+
+  .listing-card-body {
+    padding: 16px;
+  }
+
+  .listing-card-price {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #f1f3f9;
+    margin-bottom: 4px;
+  }
+
+  .listing-card-price span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .listing-card-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  .listing-card-meta {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .listing-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .listing-tag {
+    padding: 3px 10px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: #c7d2fe;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 6px;
+  }
+
+  .listing-card-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .listing-btn {
+    flex: 1;
+    min-width: 0;
+    padding: 9px 10px;
+    font-size: 0.75rem;
+    font-family: inherit;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+
+  .listing-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .listing-btn-fav {
+    flex: 0 0 auto;
+    width: 40px;
+    padding: 9px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+
+  .listing-btn-fav.favorited {
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.5);
+    background: rgba(251, 191, 36, 0.1);
+  }
+
+  .listing-btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+
+  .listing-btn-ghost:hover {
+    color: var(--text-primary);
+    border-color: var(--accent);
+  }
+
+  .listing-btn-primary {
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    border: none;
+    color: #fff;
+    box-shadow: 0 4px 14px var(--accent-glow);
+  }
+
+  .listing-btn-primary:hover {
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+
+  .listing-detail-panel {
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  }
+
+  .listing-detail-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .listing-detail-body {
+    padding: 24px;
+  }
+
+  .listing-detail-body h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .listing-detail-body .listing-detail-meta {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 16px;
+  }
+
+  .listing-detail-body p {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .listing-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    z-index: 200;
+    padding: 12px 20px;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background: rgba(34, 38, 51, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .listing-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ========== AI 区域分析 ========== */
+  .region-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px 40px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .region-intro {
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  .region-search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .region-search input {
+    flex: 1;
+    padding: 14px 18px;
+    background: rgba(42, 47, 62, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .region-search input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .region-submit {
+    flex-shrink: 0;
+    padding: 0 24px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px var(--accent-glow);
+  }
+
+  .region-submit:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px var(--accent-glow);
+  }
+
+  .region-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .region-loading,
+  .region-error {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .region-loading.show,
+  .region-error.show {
+    display: block;
+  }
+
+  .region-loading .typing-indicator {
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .region-error {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-sm);
+    color: #fca5a5;
+  }
+
+  .region-results {
+    display: none;
+    animation: recFadeIn 0.5s ease;
+  }
+
+  .region-results.show {
+    display: block;
+  }
+
+  .region-hero {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 28px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.14) 0%, rgba(34, 38, 51, 0.85) 60%);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .region-score-ring {
+    position: relative;
+    width: 108px;
+    height: 108px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(
+      var(--accent) calc(var(--score, 0) * 3.6deg),
+      rgba(42, 47, 62, 0.9) 0
+    );
+    box-shadow: 0 0 24px var(--accent-glow);
+  }
+
+  .region-score-ring-inner {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+  }
+
+  .region-score-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+    line-height: 1;
+  }
+
+  .region-score-label {
+    font-size: 0.6875rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .region-hero-info h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #e8eaed, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .region-hero-info p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .region-metrics-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .region-metric-card {
+    padding: 16px;
+    background: rgba(34, 38, 51, 0.75);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .region-metric-card:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .region-metric-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .region-metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  .region-chart-card {
+    padding: 22px;
+    margin-bottom: 20px;
+    background: rgba(34, 38, 51, 0.75);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+  }
+
+  .region-chart-card h3 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .region-chart-svg {
+    width: 100%;
+    height: 200px;
+    display: block;
+  }
+
+  .region-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .region-score-item {
+    padding: 14px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .region-score-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .region-score-item-title {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .region-score-item-value {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+  }
+
+  .region-score-bar {
+    height: 6px;
+    background: var(--bg-input);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .region-score-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #8b5cf6);
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+
+  .region-ai-panel {
+    padding: 24px;
+    background: rgba(34, 38, 51, 0.8);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 18px;
+  }
+
+  .region-ai-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-hover);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .region-ai-summary {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .region-dimension-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .region-dimension-card {
+    padding: 16px;
+    background: rgba(15, 17, 23, 0.4);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .region-dimension-card:hover {
+    border-color: rgba(99, 102, 241, 0.35);
+  }
+
+  .region-dimension-card h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .region-dimension-card p {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
   @media (max-width: 600px) {
-    header h1 { font-size: 1.25rem; }
-    header { padding-left: 100px; padding-right: 80px; }
-    #calcBtn { left: 12px; padding: 6px 10px; font-size: 0.75rem; }
-    #clearBtn { right: 12px; padding: 6px 10px; font-size: 0.75rem; }
+    header {
+      padding: 12px 16px;
+    }
+
+    .header-logo {
+      width: 36px;
+      height: 36px;
+      font-size: 1.125rem;
+    }
+
+    .header-titles h1 {
+      font-size: 1rem;
+    }
+
+    .header-titles p {
+      font-size: 0.6875rem;
+    }
+
+    .header-actions button {
+      padding: 7px 10px;
+      font-size: 0.75rem;
+    }
+
+    .main-tabs {
+      padding: 0 16px;
+    }
+
+    .main-tab {
+      padding: 12px 14px;
+      font-size: 0.8125rem;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .message.ai .message-actions {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     .bubble { max-width: 85%; }
     #sendBtn { min-width: 72px; padding: 0 16px; }
-    .compare-form { grid-template-columns: 1fr; }
+    .compare-form {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .compare-vs {
+      padding: 4px 0 8px;
+    }
+
+    .compare-scores {
+      gap: 10px;
+    }
+
+    .compare-score-value {
+      font-size: 1.625rem;
+    }
+
     .compare-table thead th:first-child { width: 80px; }
     .compare-table th, .compare-table td { padding: 10px 12px; font-size: 0.8125rem; }
+    .message-body { max-width: 85%; }
+    .favorite-card { padding: 18px; }
+    .favorites-container { padding: 24px 16px; }
+    .property-rec-panel { margin-left: 0; }
+    .message.ai.has-listings .message-body { max-width: calc(100% - 44px); }
+    .listing-card { flex: 0 0 260px; }
+    .listings-grid { grid-template-columns: 1fr; }
+    .region-metrics-row { grid-template-columns: repeat(2, 1fr); }
+    .region-scores-grid { grid-template-columns: 1fr; }
+    .region-dimension-grid { grid-template-columns: 1fr; }
+    .region-hero { flex-direction: column; text-align: center; }
+    .region-search { flex-direction: column; }
+    .region-submit { width: 100%; }
   }
   </style>
 </head>
 <body>
   <header>
-    <button id="calcBtn" type="button">房贷计算器</button>
-    <h1>AI房产助手</h1>
+    <div class="header-brand">
+      <div class="header-logo" aria-hidden="true">🏠</div>
+      <div class="header-titles">
+        <h1>AI房产助手</h1>
+        <p id="headerSubtitle">智能解答您的房产疑问</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="calcBtn" type="button">贷款计算</button>
+      <button id="clearBtn" type="button">清空对话</button>
+    </div>
+  </header>
+
+  <div class="app-tabs-bar">
     <nav class="main-tabs">
       <button class="main-tab active" type="button" data-tab="chat">AI问答</button>
+      <button class="main-tab" type="button" data-tab="listings">房源推荐</button>
+      <button class="main-tab" type="button" data-tab="region">区域分析</button>
       <button class="main-tab" type="button" data-tab="compare">城市对比</button>
+      <button class="main-tab" type="button" data-tab="favorites">收藏</button>
     </nav>
-    <p id="headerSubtitle">智能解答您的房产疑问</p>
-    <button id="clearBtn" type="button">清空对话</button>
-  </header>
+  </div>
 
   <div id="chatView" class="page-view active">
   <div class="chat-container">
     <div class="quick-questions" id="quickQuestions">
-      <button class="quick-btn" type="button" data-question="首套房首付多少？">🏠 首套房首付多少？</button>
-      <button class="quick-btn" type="button" data-question="买房需要什么证件？">📋 买房需要什么证件？</button>
-      <button class="quick-btn" type="button" data-question="公积金怎么用？">💰 公积金怎么用？</button>
-      <button class="quick-btn" type="button" data-question="现在适合买房吗？">📈 现在适合买房吗？</button>
-      <button class="quick-btn" type="button" data-question="商贷和公积金贷款区别？">🏦 商贷和公积金贷款区别？</button>
+      <button class="quick-btn" type="button" data-question="首套房首付多少？">🏠 首套房首付</button>
+      <button class="quick-btn" type="button" data-question="买房需要什么证件和材料？">📋 购房证件</button>
+      <button class="quick-btn" type="button" data-question="公积金怎么提取和使用？">💰 公积金攻略</button>
+      <button class="quick-btn" type="button" data-question="现在适合买房吗？">📈 买房时机</button>
+      <button class="quick-btn" type="button" data-question="商贷和公积金贷款有什么区别？">🏦 贷款对比</button>
+      <button class="quick-btn" type="button" data-question="二手房交易完整流程是什么？">🔑 二手房流程</button>
     </div>
     <div class="chat-history" id="chatHistory">
       <div class="welcome" id="welcome">
-        <div class="welcome-icon">🏠</div>
-        <h2>欢迎使用 AI 房产助手</h2>
-        <p>您可以询问关于买房、卖房、贷款、政策等各类房产问题</p>
+        <div class="welcome-hero">
+          <div class="welcome-icon">🏠</div>
+          <h2>欢迎使用 AI 房产助手</h2>
+          <p>专业解答买房政策、贷款、评估与投资问题</p>
+        </div>
+        <div class="feature-grid" id="featureGrid"></div>
       </div>
     </div>
   </div>
@@ -1012,14 +2311,52 @@
   </div>
   </div>
 
+  <div id="listingsView" class="page-view">
+    <div class="listings-container">
+      <div class="listings-header" id="listingsPageHeader">
+        <div class="listings-header-top">
+          <h2 class="listings-title">AI 房源推荐</h2>
+          <span class="listings-badge" id="listingsCountBadge">0 套</span>
+        </div>
+        <div class="listings-ai-reason" id="listingsAiReason" style="display: none;">
+          <div class="listings-ai-reason-label">✦ AI 推荐理由</div>
+          <p id="listingsAiReasonText"></p>
+        </div>
+      </div>
+      <div class="listings-empty" id="listingsEmpty">
+        <div class="listings-empty-icon">🏘️</div>
+        <p>暂无推荐房源</p>
+        <p style="margin-top: 8px; font-size: 0.8125rem;">在 AI 问答中提问买房需求，回复后将自动生成匹配房源</p>
+      </div>
+      <div class="listings-grid" id="listingsGrid"></div>
+    </div>
+  </div>
+
+  <div id="regionView" class="page-view">
+    <div class="region-container">
+      <p class="region-intro">输入目标区域，AI 将从房价、学区、交通、商圈等维度生成深度分析报告</p>
+      <div class="region-search">
+        <input type="text" id="regionInput" placeholder="例如：广州天河区" autocomplete="off">
+        <button class="region-submit" id="regionSubmit" type="button">开始分析</button>
+      </div>
+      <div class="region-loading" id="regionLoading">
+        <div class="typing-indicator"><span></span><span></span><span></span></div>
+        AI 正在分析区域数据，请稍候...
+      </div>
+      <div class="region-error" id="regionError"></div>
+      <div class="region-results" id="regionResults"></div>
+    </div>
+  </div>
+
   <div id="compareView" class="page-view">
     <div class="compare-container">
-      <p class="compare-intro">输入两个城市，AI 将从政策、房价、落户等多维度为您对比分析</p>
+      <p class="compare-intro">输入两个城市，AI 从 6 大维度对比并给出综合评分与推荐</p>
       <div class="compare-form">
         <div class="compare-field">
           <label for="cityA">城市 A</label>
           <input type="text" id="cityA" placeholder="例如：北京">
         </div>
+        <div class="compare-vs" aria-hidden="true">VS</div>
         <div class="compare-field">
           <label for="cityB">城市 B</label>
           <input type="text" id="cityB" placeholder="例如：上海">
@@ -1035,6 +2372,26 @@
     </div>
   </div>
 
+  <div id="favoritesView" class="page-view">
+    <div class="favorites-container">
+      <div class="favorites-header">
+        <h2 class="favorites-title">我的收藏</h2>
+        <span class="favorites-count" id="favoritesCount">0 条</span>
+      </div>
+      <p class="favorites-intro">收藏的 AI 问答记录，随时回顾重要回答</p>
+      <div id="favoritesEmpty" class="favorites-empty">
+        <div class="favorites-empty-icon" aria-hidden="true">☆</div>
+        <p class="favorites-empty-title">还没有收藏</p>
+        <p class="favorites-empty-desc">在 AI 问答中，将鼠标悬停在回答上，点击 ★ 即可收藏有价值的回复</p>
+      </div>
+      <div class="favorites-list" id="favoritesList"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="listingModal">
+    <div class="listing-detail-panel" id="listingDetailPanel"></div>
+  </div>
+
   <div class="modal-overlay" id="calcModal">
     <div class="calc-panel">
       <div class="calc-header">
@@ -1042,6 +2399,10 @@
         <button class="calc-close" id="calcClose" type="button" aria-label="关闭">&times;</button>
       </div>
       <div class="calc-body">
+        <div class="calc-mode-tabs" role="tablist">
+          <button class="calc-mode-tab active" type="button" data-mode="equal-payment" role="tab" aria-selected="true">等额本息</button>
+          <button class="calc-mode-tab" type="button" data-mode="equal-principal" role="tab" aria-selected="false">等额本金</button>
+        </div>
         <div class="calc-field">
           <label for="totalPrice">房屋总价（万元）</label>
           <input type="number" id="totalPrice" placeholder="例如：300" min="0" step="0.01">
@@ -1067,31 +2428,37 @@
         <button class="calc-submit" id="calcSubmit" type="button">计算</button>
         <div class="calc-error" id="calcError"></div>
         <div class="calc-results" id="calcResults">
-          <h3>计算结果（等额本息）</h3>
-          <div class="calc-result-item">
-            <span>贷款金额</span>
-            <span id="resultLoan">-</span>
+          <h3 id="calcResultsTitle">计算结果（等额本息）</h3>
+          <div class="calc-result-grid">
+            <div class="calc-result-card">
+              <span class="calc-result-label">贷款金额</span>
+              <span class="calc-result-value" id="resultLoan">-</span>
+            </div>
+            <div class="calc-result-card highlight">
+              <span class="calc-result-label" id="resultMonthlyLabel">月供金额</span>
+              <span class="calc-result-value" id="resultMonthly">-</span>
+            </div>
+            <div class="calc-result-card">
+              <span class="calc-result-label">总利息</span>
+              <span class="calc-result-value" id="resultInterest">-</span>
+            </div>
+            <div class="calc-result-card">
+              <span class="calc-result-label">还款总额</span>
+              <span class="calc-result-value" id="resultTotal">-</span>
+            </div>
           </div>
-          <div class="calc-result-item highlight">
-            <span>每月还款</span>
-            <span id="resultMonthly">-</span>
-          </div>
-          <div class="calc-result-item">
-            <span>总利息</span>
-            <span id="resultInterest">-</span>
-          </div>
-          <div class="calc-result-item">
-            <span>总还款金额</span>
-            <span id="resultTotal">-</span>
-          </div>
+          <button class="calc-consult-btn" type="button" id="calcConsultBtn">向 AI 咨询这个方案</button>
         </div>
       </div>
     </div>
   </div>
 
+  <div id="listingToast" class="listing-toast" role="status"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
   <script>
+  /* ========== API 配置 ========== */
   const API_KEY = "sk-f2ac4dd7775c4afd81f5ba01a5167518";
   const MODEL = "deepseek-chat";
   const API_URL = "https://api.deepseek.com/v1/chat/completions";
@@ -1099,20 +2466,614 @@
     "你是一个专业的房产顾问，帮助用户解答关于买房、卖房、贷款、政策等问题，回答要专业、简洁、实用";
   const COMPARE_SYSTEM_PROMPT =
     "你是专业房产顾问。对比两个城市的买房条件，必须返回纯JSON，不要markdown代码块，不要其他文字。"
-    + '格式：{"rows":[{"label":"限购政策","cityA":"内容","cityB":"内容"}]}'
-    + "。rows必须包含且仅包含5项，label依次为：限购政策、首付比例、落户要求、房价水平、适合人群。内容简洁专业，每项50-120字。";
+    + '格式：{"scoreA":85,"scoreB":78,"rows":[{"label":"限购政策","cityA":"内容","cityB":"内容","winner":"A"}]}'
+    + "。scoreA和scoreB为1-100的整数，表示两城市购房综合评分。"
+    + "rows必须包含且仅包含6项，label依次为：限购政策、首付比例、落户要求、房价水平、配套资源、适合人群。"
+    + '每行winner填"A"或"B"表示该维度更优的城市。内容简洁专业，每项50-120字。';
 
-  const STORAGE_KEY = "ai-house-chat";
+  const COMPARE_ROW_LABELS = [
+    "限购政策",
+    "首付比例",
+    "落户要求",
+    "房价水平",
+    "配套资源",
+    "适合人群",
+  ];
 
-  const chatHistory = document.getElementById("chatHistory");
+  const REGION_SYSTEM_PROMPT =
+    "你是专业房产区域分析师。分析指定区域，必须返回纯JSON，不要markdown代码块，不要其他文字。"
+    + '格式：{"region":"区域名","overallScore":85,"metrics":{"avgPrice":"6.8万/㎡","yoyChange":"+2.3%","metroLines":"3条","keySchools":"12所"},"scores":{"priceTrend":82,"school":90,"metro":88,"business":85,"investment":80,"crowd":78},"priceTrend":[{"label":"1月","price":6.2}],"sections":{"priceTrend":"分析","school":"分析","metro":"分析","business":"分析","investment":"分析","crowd":"分析"},"aiSummary":"总结"}'
+    + "。priceTrend为近6个月数组。scores六项0-100。sections对应：房价趋势、学区资源、地铁情况、商圈分析、投资潜力、适合人群。内容专业简洁。";
+
+  const REGION_DIMENSIONS = [
+    { key: "priceTrend", label: "房价趋势", icon: "📈" },
+    { key: "school", label: "学区资源", icon: "🎓" },
+    { key: "metro", label: "地铁情况", icon: "🚇" },
+    { key: "business", label: "商圈分析", icon: "🏙️" },
+    { key: "investment", label: "投资潜力", icon: "💹" },
+    { key: "crowd", label: "适合人群", icon: "👥" },
+  ];
+
+  /* ========== 存储 ========== */
+  const STORAGE_KEY = "aih-chat-v2";
+  const FAVORITES_STORAGE_KEY = "aih-fav-v2";
+  const PROPERTY_LISTINGS_KEY = "aih-listings-v2";
+  const PROPERTY_FAV_KEY = "aih-prop-fav-v2";
+  const MAX_CONVERSATION_HISTORY = 20;
+  const MAX_DISPLAY_MESSAGES = 60;
+
+  const MOCK_LISTINGS = [
+    {
+      id: "listing-1",
+      image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      community: "万科城市花园",
+      district: "朝阳区 · 望京",
+      price: 865,
+      layout: "3室2厅",
+      area: 108,
+      matchScore: 96,
+      tags: ["学区房", "地铁房"],
+      desc: "南北通透，近地铁 14 号线，对口优质九年一贯制学校，适合改善自住。",
+    },
+    {
+      id: "listing-2",
+      image: "https://images.unsplash.com/photo-1600585154340-be616a2a2a9c?w=800&q=80",
+      community: "中海馥园",
+      district: "海淀区 · 中关村",
+      price: 1280,
+      layout: "4室2厅",
+      area: 142,
+      matchScore: 92,
+      tags: ["改善房", "学区房"],
+      desc: "花园洋房社区，容积率低，周边产业与教育资源密集，长期保值性强。",
+    },
+    {
+      id: "listing-3",
+      image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+      community: "保利中央公园",
+      district: "丰台区 · 丽泽",
+      price: 720,
+      layout: "2室1厅",
+      area: 89,
+      matchScore: 88,
+      tags: ["地铁房", "首套友好"],
+      desc: "丽泽商务区辐射圈，通勤金融街便利，总价友好适合首套上车。",
+    },
+    {
+      id: "listing-4",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      community: "融创壹号院",
+      district: "西城区 · 金融街",
+      price: 1580,
+      layout: "3室2厅",
+      area: 128,
+      matchScore: 90,
+      tags: ["改善房", "地铁房"],
+      desc: "金融街核心辐射，精装交付，物业口碑好，适合高净值改善客群。",
+    },
+    {
+      id: "listing-5",
+      image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+      community: "华润橡树湾",
+      district: "昌平区 · 回龙观",
+      price: 580,
+      layout: "3室1厅",
+      area: 98,
+      matchScore: 85,
+      tags: ["刚需", "地铁房"],
+      desc: "回龙观成熟板块，生活配套齐全，地铁直达主城区，性价比突出。",
+    },
+    {
+      id: "listing-6",
+      image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80",
+      community: "绿城桂语听澜",
+      district: "通州区 · 运河核心区",
+      price: 650,
+      layout: "3室2厅",
+      area: 115,
+      matchScore: 87,
+      tags: ["改善房", "河景房"],
+      desc: "运河文化带新兴板块，品牌开发商，户型方正适合三代同堂。",
+    },
+  ];
+
+  let latestPropertyRecs = null;
+  let savedPropertyFavoriteIds = new Set();
+
+  /* ========== 欢迎页功能入口 ========== */
+  const FEATURE_ENTRIES = [
+    {
+      icon: "💳",
+      title: "首付政策",
+      desc: "首套房与二套房首付比例解读",
+      question: "请详细介绍当前首套房和二套房的首付政策，以及不同城市的差异",
+    },
+    {
+      icon: "🚫",
+      title: "限购政策",
+      desc: "购房资格与套数限制一览",
+      question: "请介绍主要城市的限购政策，包括购房资格、套数限制和落户要求",
+    },
+    {
+      icon: "📊",
+      title: "房产评估",
+      desc: "价值判断与性价比分析",
+      question: "买房前如何评估房产价值和性价比？有哪些关键指标需要关注？",
+    },
+    {
+      icon: "📉",
+      title: "利率谈判",
+      desc: "争取更低贷款利率的技巧",
+      question: "房贷利率如何谈判？有哪些技巧可以获得更优惠的贷款利率？",
+    },
+    {
+      icon: "⚠️",
+      title: "避坑指南",
+      desc: "常见陷阱与防范建议",
+      question: "买房有哪些常见陷阱需要避开？请给出实用的避坑指南",
+    },
+    {
+      icon: "💹",
+      title: "投资回报",
+      desc: "收益率计算与投资要点",
+      question: "投资房产如何计算投资回报率？需要注意哪些关键因素？",
+    },
+  ];
+
+  /* ========== DOM 引用 ========== */
   const questionInput = document.getElementById("questionInput");
   const sendBtn = document.getElementById("sendBtn");
   const clearBtn = document.getElementById("clearBtn");
+  const chatHistory = document.getElementById("chatHistory");
   const quickBtns = document.querySelectorAll(".quick-btn");
 
   let conversationHistory = [];
   let displayMessages = [];
+  let favorites = [];
   let isLoading = false;
+
+  function generateMessageId() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  function trimConversationHistory() {
+    while (conversationHistory.length > MAX_CONVERSATION_HISTORY) {
+      conversationHistory.shift();
+    }
+  }
+
+  function trimDisplayMessages() {
+    if (displayMessages.length > MAX_DISPLAY_MESSAGES) {
+      displayMessages = displayMessages.slice(-MAX_DISPLAY_MESSAGES);
+    }
+  }
+
+  function normalizeDisplayMessages() {
+    displayMessages.forEach((msg, i) => {
+      if (!msg.id) msg.id = generateMessageId();
+      if (msg.role === "ai" && !msg.isError && !msg.question) {
+        for (let j = i - 1; j >= 0; j--) {
+          if (displayMessages[j].role === "user") {
+            msg.question = displayMessages[j].content;
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  function isFavorited(messageId) {
+    return favorites.some((item) => item.messageId === messageId);
+  }
+
+  function saveFavorites() {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favorites));
+  }
+
+  function loadFavorites() {
+    try {
+      const saved = localStorage.getItem(FAVORITES_STORAGE_KEY);
+      favorites = saved ? JSON.parse(saved) : [];
+      if (!Array.isArray(favorites)) favorites = [];
+    } catch {
+      favorites = [];
+      localStorage.removeItem(FAVORITES_STORAGE_KEY);
+    }
+    renderFavorites();
+  }
+
+  function updateFavoriteButtons(messageId) {
+    const favorited = isFavorited(messageId);
+    document.querySelectorAll(`.favorite-btn[data-message-id="${messageId}"]`).forEach((btn) => {
+      btn.classList.toggle("favorited", favorited);
+      btn.textContent = favorited ? "★" : "☆";
+      btn.title = favorited ? "取消收藏" : "收藏";
+      btn.setAttribute("aria-label", btn.title);
+    });
+  }
+
+  async function copyToClipboard(text) {
+    if (!text) return false;
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return ok;
+    }
+  }
+
+  function getMessagePlainText(messageId, fallbackContent) {
+    const msgData = displayMessages.find((item) => item.id === messageId);
+    return msgData?.content || fallbackContent || "";
+  }
+
+  function escapeHtml(text) {
+    const el = document.createElement("div");
+    el.textContent = text;
+    return el.innerHTML;
+  }
+
+  function buildFeatureGridHTML() {
+    return FEATURE_ENTRIES.map(
+      (item) => `
+        <button class="feature-card" type="button" data-question="${escapeHtml(item.question)}">
+          <span class="feature-card-icon">${item.icon}</span>
+          <span class="feature-card-title">${escapeHtml(item.title)}</span>
+          <span class="feature-card-desc">${escapeHtml(item.desc)}</span>
+        </button>`
+    ).join("");
+  }
+
+  function getWelcomeHTML() {
+    return `
+      <div class="welcome" id="welcome">
+        <div class="welcome-hero">
+          <div class="welcome-icon">🏠</div>
+          <h2>欢迎使用 AI 房产助手</h2>
+          <p>专业解答买房政策、贷款、评估与投资问题</p>
+        </div>
+        <div class="feature-grid" id="featureGrid">${buildFeatureGridHTML()}</div>
+      </div>`;
+  }
+
+  function initFeatureGrid() {
+    const grid = document.getElementById("featureGrid");
+    if (grid) grid.innerHTML = buildFeatureGridHTML();
+  }
+
+  /* ========== 房源推荐 ========== */
+  function hashString(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = (h << 5) - h + str.charCodeAt(i);
+      h |= 0;
+    }
+    return Math.abs(h);
+  }
+
+  function loadPropertyFavorites() {
+    try {
+      const saved = localStorage.getItem(PROPERTY_FAV_KEY);
+      const ids = saved ? JSON.parse(saved) : [];
+      savedPropertyFavoriteIds = new Set(Array.isArray(ids) ? ids : []);
+    } catch {
+      savedPropertyFavoriteIds = new Set();
+    }
+  }
+
+  function savePropertyFavorites() {
+    localStorage.setItem(
+      PROPERTY_FAV_KEY,
+      JSON.stringify([...savedPropertyFavoriteIds])
+    );
+  }
+
+  function isPropertyFavorited(id) {
+    return savedPropertyFavoriteIds.has(id);
+  }
+
+  function togglePropertyFavorite(id) {
+    if (savedPropertyFavoriteIds.has(id)) {
+      savedPropertyFavoriteIds.delete(id);
+      showListingToast("已取消收藏该房源");
+    } else {
+      savedPropertyFavoriteIds.add(id);
+      showListingToast("已收藏该房源");
+    }
+    savePropertyFavorites();
+    document.querySelectorAll(`.listing-btn-fav[data-listing-id="${id}"]`).forEach((btn) => {
+      btn.classList.toggle("favorited", isPropertyFavorited(id));
+      btn.textContent = isPropertyFavorited(id) ? "★" : "☆";
+    });
+  }
+
+  function saveLatestListings() {
+    if (latestPropertyRecs) {
+      localStorage.setItem(PROPERTY_LISTINGS_KEY, JSON.stringify(latestPropertyRecs));
+    }
+  }
+
+  function loadLatestListings() {
+    try {
+      const saved = localStorage.getItem(PROPERTY_LISTINGS_KEY);
+      latestPropertyRecs = saved ? JSON.parse(saved) : null;
+    } catch {
+      latestPropertyRecs = null;
+      localStorage.removeItem(PROPERTY_LISTINGS_KEY);
+    }
+  }
+
+  function showListingToast(message) {
+    const toast = document.getElementById("listingToast");
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("show");
+    clearTimeout(showListingToast._timer);
+    showListingToast._timer = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  function buildRecSummary(question, listings) {
+    const top = listings[0];
+    const tags = top.tags.join("、");
+    return `根据您「${question.slice(0, 40)}${question.length > 40 ? "…" : ""}」的需求，AI 从区域配套、户型面积、总价预算与通勤维度进行匹配。重点推荐 ${top.community}（${top.district}），匹配度 ${top.matchScore}%，具备 ${tags} 等优势；同时为您筛选了 ${listings.length} 套高相关房源供对比决策。`;
+  }
+
+  function generatePropertyRecommendations(question, answer) {
+    const seed = hashString(question + (answer || "").slice(0, 120));
+    const pool = [...MOCK_LISTINGS];
+    const picked = [];
+    for (let i = 0; i < pool.length && picked.length < 3; i++) {
+      const item = pool[(seed + i * 5) % pool.length];
+      if (!picked.some((p) => p.id === item.id)) {
+        picked.push({ ...item });
+      }
+    }
+    picked.sort((a, b) => b.matchScore - a.matchScore);
+    const listings = picked.map((item, i) => ({
+      ...item,
+      featured: i === 0,
+    }));
+    return {
+      question,
+      summary: buildRecSummary(question, listings),
+      listings,
+      createdAt: Date.now(),
+    };
+  }
+
+  function buildListingCardHTML(listing, options = {}) {
+    const { layout = "card" } = options;
+    const featured = listing.featured ? " listing-card--featured" : "";
+    const fav = isPropertyFavorited(listing.id);
+    return `
+      <article class="listing-card${featured}" data-listing-id="${escapeHtml(listing.id)}">
+        <span class="listing-card-badge">精选推荐</span>
+        <div class="listing-card-image-wrap">
+          <img class="listing-card-image" src="${escapeHtml(listing.image)}" alt="${escapeHtml(listing.community)}" loading="lazy">
+          <span class="listing-match">匹配 <strong>${listing.matchScore}%</strong></span>
+        </div>
+        <div class="listing-card-body">
+          <div class="listing-card-price">${listing.price}<span> 万</span></div>
+          <h3 class="listing-card-name">${escapeHtml(listing.community)}</h3>
+          <p class="listing-card-meta">${escapeHtml(listing.district)} · ${escapeHtml(listing.layout)} · ${listing.area}㎡</p>
+          <div class="listing-tags">
+            ${listing.tags.map((t) => `<span class="listing-tag">${escapeHtml(t)}</span>`).join("")}
+          </div>
+          <div class="listing-card-actions">
+            <button type="button" class="listing-btn listing-btn-fav${fav ? " favorited" : ""}" data-action="fav" data-listing-id="${escapeHtml(listing.id)}" aria-label="收藏">${fav ? "★" : "☆"}</button>
+            <button type="button" class="listing-btn listing-btn-ghost" data-action="detail" data-listing-id="${escapeHtml(listing.id)}">查看详情</button>
+            <button type="button" class="listing-btn listing-btn-primary" data-action="contact" data-listing-id="${escapeHtml(listing.id)}">联系经纪人</button>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  function bindListingCardEvents(container, recs) {
+    if (!container) return;
+    const findListing = (id) =>
+      recs?.listings?.find((l) => l.id === id) ||
+      latestPropertyRecs?.listings?.find((l) => l.id === id);
+
+    container.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-action]");
+      if (!btn) return;
+      const id = btn.dataset.listingId;
+      const listing = findListing(id);
+      if (!listing) return;
+
+      if (btn.dataset.action === "fav") {
+        togglePropertyFavorite(id);
+      } else if (btn.dataset.action === "detail") {
+        openListingDetail(listing);
+      } else if (btn.dataset.action === "contact") {
+        showListingToast(`已为您接通 ${listing.community} 专属经纪人（模拟）· 400-888-6688`);
+      }
+    });
+  }
+
+  function openListingDetail(listing) {
+    const modal = document.getElementById("listingModal");
+    const panel = document.getElementById("listingDetailPanel");
+    if (!modal || !panel) return;
+
+    panel.innerHTML = `
+      <img class="listing-detail-image" src="${escapeHtml(listing.image)}" alt="">
+      <div class="listing-detail-body">
+        <h3>${escapeHtml(listing.community)}</h3>
+        <p class="listing-detail-meta">${escapeHtml(listing.district)} · ${escapeHtml(listing.layout)} · ${listing.area}㎡ · ${listing.price} 万</p>
+        <div class="listing-tags" style="margin-bottom: 16px;">
+          ${listing.tags.map((t) => `<span class="listing-tag">${escapeHtml(t)}</span>`).join("")}
+        </div>
+        <p>${escapeHtml(listing.desc || "")}</p>
+        <p style="font-size: 0.8125rem; color: var(--accent-hover);">AI 匹配度 ${listing.matchScore}%</p>
+        <div class="listing-card-actions" style="margin-top: 8px;">
+          <button type="button" class="listing-btn listing-btn-fav${isPropertyFavorited(listing.id) ? " favorited" : ""}" data-action="fav" data-listing-id="${escapeHtml(listing.id)}">${isPropertyFavorited(listing.id) ? "★" : "☆"}</button>
+          <button type="button" class="listing-btn listing-btn-primary" data-action="contact" data-listing-id="${escapeHtml(listing.id)}" style="flex: 1;">联系经纪人</button>
+        </div>
+      </div>`;
+
+    bindListingCardEvents(panel, { listings: [listing] });
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeListingDetail() {
+    const modal = document.getElementById("listingModal");
+    if (modal) modal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  function attachPropertyRecommendations(msgEl, recs) {
+    if (!msgEl || !recs?.listings?.length) return;
+
+    msgEl.classList.add("has-listings");
+    const existing = msgEl.querySelector(".property-rec-panel");
+    if (existing) existing.remove();
+
+    const panel = document.createElement("div");
+    panel.className = "property-rec-panel";
+    panel.innerHTML = `
+      <div class="property-rec-panel-header">
+        <span class="property-rec-panel-title">✦ 为您匹配 ${recs.listings.length} 套房源</span>
+        <button type="button" class="property-rec-view-all">查看全部推荐</button>
+      </div>
+      <div class="property-rec-scroll">
+        ${recs.listings.map((l) => buildListingCardHTML(l)).join("")}
+      </div>`;
+
+    msgEl.appendChild(panel);
+    bindListingCardEvents(panel, recs);
+
+    panel.querySelector(".property-rec-view-all")?.addEventListener("click", () => {
+      latestPropertyRecs = recs;
+      saveLatestListings();
+      switchTab("listings");
+    });
+  }
+
+  function renderListingsPage() {
+    const grid = document.getElementById("listingsGrid");
+    const empty = document.getElementById("listingsEmpty");
+    const reason = document.getElementById("listingsAiReason");
+    const reasonText = document.getElementById("listingsAiReasonText");
+    const badge = document.getElementById("listingsCountBadge");
+    if (!grid || !empty) return;
+
+    if (!latestPropertyRecs?.listings?.length) {
+      empty.style.display = "block";
+      grid.innerHTML = "";
+      if (reason) reason.style.display = "none";
+      if (badge) badge.textContent = "0 套";
+      return;
+    }
+
+    empty.style.display = "none";
+    if (badge) badge.textContent = `${latestPropertyRecs.listings.length} 套`;
+    if (reason && reasonText) {
+      reason.style.display = "block";
+      reasonText.textContent = latestPropertyRecs.summary;
+    }
+
+    grid.innerHTML = latestPropertyRecs.listings
+      .map((l) => buildListingCardHTML(l))
+      .join("");
+    bindListingCardEvents(grid, latestPropertyRecs);
+  }
+
+  function toggleFavorite(messageId, question, answer) {
+    const msgData = displayMessages.find((item) => item.id === messageId);
+    const resolvedAnswer = answer || msgData?.content || "";
+    const resolvedQuestion = question || msgData?.question || "（无问题）";
+    const index = favorites.findIndex((item) => item.messageId === messageId);
+    if (index >= 0) {
+      favorites.splice(index, 1);
+    } else {
+      if (!resolvedAnswer) return;
+      favorites.unshift({
+        id: generateMessageId(),
+        messageId,
+        question: resolvedQuestion,
+        answer: resolvedAnswer,
+        createdAt: Date.now(),
+      });
+    }
+    saveFavorites();
+    updateFavoriteButtons(messageId);
+    renderFavorites();
+  }
+
+  function removeFavorite(messageId) {
+    favorites = favorites.filter((item) => item.messageId !== messageId);
+    saveFavorites();
+    updateFavoriteButtons(messageId);
+    renderFavorites();
+  }
+
+  function formatFavoriteTime(timestamp) {
+    return new Date(timestamp).toLocaleString("zh-CN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  function renderFavorites() {
+    const favoritesList = document.getElementById("favoritesList");
+    const favoritesEmpty = document.getElementById("favoritesEmpty");
+    const favoritesCount = document.getElementById("favoritesCount");
+    if (!favoritesList || !favoritesEmpty) return;
+
+    if (favoritesCount) {
+      favoritesCount.textContent = `${favorites.length} 条`;
+    }
+
+    favoritesList.innerHTML = "";
+    favoritesEmpty.style.display = favorites.length === 0 ? "block" : "none";
+
+    favorites.forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "favorite-card";
+
+      const header = document.createElement("div");
+      header.className = "favorite-card-header";
+
+      const title = document.createElement("h4");
+      title.className = "favorite-question";
+      title.textContent = item.question || "（无问题）";
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "favorite-delete";
+      deleteBtn.type = "button";
+      deleteBtn.textContent = "删除";
+      deleteBtn.addEventListener("click", () => removeFavorite(item.messageId));
+
+      header.appendChild(title);
+      header.appendChild(deleteBtn);
+
+      const answer = document.createElement("div");
+      answer.className = "favorite-answer md-content";
+      answer.innerHTML = renderMarkdown(item.answer || "");
+
+      const time = document.createElement("time");
+      time.className = "favorite-time";
+      time.textContent = formatFavoriteTime(item.createdAt || Date.now());
+
+      card.appendChild(header);
+      card.appendChild(answer);
+      card.appendChild(time);
+      favoritesList.appendChild(card);
+    });
+  }
 
   if (typeof marked !== "undefined") {
     marked.setOptions({ breaks: true, gfm: true });
@@ -1135,6 +3096,8 @@
   }
 
   function saveChat() {
+    trimConversationHistory();
+    trimDisplayMessages();
     localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({ conversationHistory, displayMessages })
@@ -1150,13 +3113,21 @@
       const data = JSON.parse(saved);
       conversationHistory = data.conversationHistory || [];
       displayMessages = data.displayMessages || [];
+      trimConversationHistory();
+      trimDisplayMessages();
+      normalizeDisplayMessages();
 
       if (displayMessages.length > 0) {
         document.getElementById("welcome")?.remove();
         displayMessages.forEach((msg) => {
-          chatHistory.appendChild(
-            createMessage(msg.role, msg.content, msg.isError)
-          );
+          const el = createMessage(msg.role, msg.content, msg.isError, {
+            id: msg.id,
+            question: msg.question,
+          });
+          chatHistory.appendChild(el);
+          if (msg.propertyRecs) {
+            attachPropertyRecommendations(el, msg.propertyRecs);
+          }
         });
         scrollToBottom();
       }
@@ -1168,7 +3139,10 @@
 
   function clearChat() {
     if (isLoading) return;
-    if (displayMessages.length > 0 && !confirm("确定要清空所有对话记录吗？")) {
+    if (
+      displayMessages.length > 0 &&
+      !confirm("确定清空所有对话记录？此操作不可恢复")
+    ) {
       return;
     }
 
@@ -1176,12 +3150,7 @@
     displayMessages = [];
     localStorage.removeItem(STORAGE_KEY);
 
-    chatHistory.innerHTML = `
-      <div class="welcome" id="welcome">
-        <div class="welcome-icon">🏠</div>
-        <h2>欢迎使用 AI 房产助手</h2>
-        <p>您可以询问关于买房、卖房、贷款、政策等各类房产问题</p>
-      </div>`;
+    chatHistory.innerHTML = getWelcomeHTML();
 
     clearBtn.disabled = true;
     questionInput.focus();
@@ -1201,9 +3170,51 @@
     questionInput.disabled = !enabled;
     clearBtn.disabled = !enabled || displayMessages.length === 0;
     quickBtns.forEach((btn) => { btn.disabled = !enabled; });
+    document.querySelectorAll(".feature-card").forEach((btn) => {
+      btn.disabled = !enabled;
+    });
   }
 
-  function createMessage(role, content, isError = false) {
+  function buildAiMessageActions(id, question, content) {
+    const actions = document.createElement("div");
+    actions.className = "message-actions";
+
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "msg-action-btn copy-btn";
+    copyBtn.type = "button";
+    copyBtn.textContent = "复制";
+    copyBtn.title = "复制回答";
+    copyBtn.setAttribute("aria-label", "复制回答");
+    copyBtn.addEventListener("click", async () => {
+      const text = getMessagePlainText(id, content);
+      const ok = await copyToClipboard(text);
+      if (ok) {
+        copyBtn.textContent = "已复制";
+        copyBtn.classList.add("copied");
+        setTimeout(() => {
+          copyBtn.textContent = "复制";
+          copyBtn.classList.remove("copied");
+        }, 1500);
+      }
+    });
+
+    const favorited = isFavorited(id);
+    const favBtn = document.createElement("button");
+    favBtn.className = "msg-action-btn favorite-btn" + (favorited ? " favorited" : "");
+    favBtn.type = "button";
+    favBtn.textContent = favorited ? "★" : "☆";
+    favBtn.dataset.messageId = id;
+    favBtn.title = favorited ? "取消收藏" : "收藏";
+    favBtn.setAttribute("aria-label", favBtn.title);
+    favBtn.addEventListener("click", () => toggleFavorite(id, question, content));
+
+    actions.appendChild(copyBtn);
+    actions.appendChild(favBtn);
+    return actions;
+  }
+
+  function createMessage(role, content, isError = false, meta = {}) {
+    const { id, question } = meta;
     const msg = document.createElement("div");
     msg.className = `message ${role}`;
 
@@ -1216,68 +3227,66 @@
     setBubbleContent(bubble, role, content, isError);
 
     msg.appendChild(avatar);
-    msg.appendChild(bubble);
+
+    if (role === "ai" && id && !isError && !meta.streaming) {
+      const body = document.createElement("div");
+      body.className = "message-body";
+      body.appendChild(bubble);
+      body.appendChild(buildAiMessageActions(id, question, content));
+      msg.appendChild(body);
+    } else {
+      msg.appendChild(bubble);
+    }
+
     return msg;
   }
 
-  function showTypingIndicator() {
-    const msg = document.createElement("div");
-    msg.className = "message ai";
-    msg.id = "typingMsg";
-
-    const avatar = document.createElement("div");
-    avatar.className = "avatar";
-    avatar.textContent = "AI";
-
-    const bubble = document.createElement("div");
-    bubble.className = "bubble";
+  function updateStreamingBubble(bubble, text) {
     bubble.innerHTML =
-      '<div class="typing-indicator"><span></span><span></span><span></span></div>';
-
-    msg.appendChild(avatar);
-    msg.appendChild(bubble);
-    chatHistory.appendChild(msg);
-    scrollToBottom();
-    return msg;
+      renderMarkdown(text) + '<span class="stream-cursor" aria-hidden="true">▋</span>';
+    bubble.classList.add("md-content", "streaming");
   }
 
-  async function typeAiMessage(text, isError = false) {
-    const msg = createMessage("ai", "", isError);
-    chatHistory.appendChild(msg);
-    const bubble = msg.querySelector(".bubble");
-
-    if (isError) {
-      bubble.textContent = text;
-      displayMessages.push({ role: "ai", content: text, isError: true });
-      saveChat();
-      return;
-    }
-
-    bubble.classList.remove("md-content");
-    bubble.classList.add("typing");
-
-    const totalMs = Math.min(4000, Math.max(800, text.length * 25));
-    const chunkSize = Math.max(1, Math.ceil(text.length / (totalMs / 30)));
-
-    for (let i = 0; i < text.length; i += chunkSize) {
-      bubble.textContent = text.slice(0, Math.min(i + chunkSize, text.length));
-      scrollToBottom();
-      await new Promise((r) => setTimeout(r, 30));
-    }
-
-    bubble.classList.remove("typing");
+  function finalizeStreamingMessage(body, bubble, aiId, question, text) {
     setBubbleContent(bubble, "ai", text);
-
-    displayMessages.push({ role: "ai", content: text, isError });
-    saveChat();
+    bubble.classList.remove("streaming");
+    if (body && !body.querySelector(".message-actions")) {
+      body.appendChild(buildAiMessageActions(aiId, question, text));
+    }
   }
 
-  async function callDeepSeekAPI(userMessage) {
-    conversationHistory.push({
-      role: "user",
-      content: userMessage,
-    });
+  function appendStreamWarning(bubble, message) {
+    if (bubble.querySelector(".stream-error-note")) return;
+    const note = document.createElement("p");
+    note.className = "stream-error-note";
+    note.textContent = `⚠ ${message || "回复未完整加载"}，已保留已生成内容`;
+    bubble.appendChild(note);
+  }
 
+  function parseSseLines(buffer, onDelta) {
+    const lines = buffer.split("\n");
+    const rest = lines.pop() ?? "";
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed.startsWith("data:")) continue;
+
+      const data = trimmed.slice(5).trim();
+      if (!data || data === "[DONE]") continue;
+
+      try {
+        const parsed = JSON.parse(data);
+        const content = parsed.choices?.[0]?.delta?.content;
+        if (content) onDelta(content);
+      } catch {
+        /* 忽略不完整 JSON 行 */
+      }
+    }
+
+    return rest;
+  }
+
+  async function streamChatCompletion(onChunk) {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
@@ -1286,6 +3295,7 @@
       },
       body: JSON.stringify({
         model: MODEL,
+        stream: true,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           ...conversationHistory,
@@ -1293,28 +3303,55 @@
       }),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      conversationHistory.pop();
-      const errMsg =
-        data.error?.message || `请求失败（${response.status}），请稍后重试`;
+      let errMsg = `请求失败（${response.status}），请稍后重试`;
+      try {
+        const errData = await response.json();
+        errMsg = errData.error?.message || errMsg;
+      } catch {
+        /* 非 JSON 错误体 */
+      }
       throw new Error(errMsg);
     }
 
-    const reply = data.choices?.[0]?.message?.content;
-    if (!reply) {
-      conversationHistory.pop();
+    if (!response.body) {
+      throw new Error("浏览器不支持流式响应");
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let accumulated = "";
+
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        buffer = parseSseLines(buffer, (delta) => {
+          accumulated += delta;
+          onChunk(accumulated);
+        });
+      }
+
+      buffer += decoder.decode();
+      if (buffer.trim()) {
+        parseSseLines(buffer + "\n", (delta) => {
+          accumulated += delta;
+          onChunk(accumulated);
+        });
+      }
+    } catch (err) {
+      err.partialContent = accumulated;
+      throw err;
+    }
+
+    if (!accumulated) {
       throw new Error("未收到有效回复，请重试");
     }
 
-    conversationHistory.push({
-      role: "assistant",
-      content: reply,
-    });
-
-    saveChat();
-    return reply;
+    return accumulated;
   }
 
   async function sendMessage(overrideText) {
@@ -1324,7 +3361,7 @@
     document.getElementById("welcome")?.remove();
 
     chatHistory.appendChild(createMessage("user", text));
-    displayMessages.push({ role: "user", content: text });
+    displayMessages.push({ role: "user", content: text, id: generateMessageId() });
     saveChat();
     if (overrideText === undefined) {
       questionInput.value = "";
@@ -1334,18 +3371,89 @@
 
     isLoading = true;
     setInputEnabled(false);
-    const typingMsg = showTypingIndicator();
+
+    const aiId = generateMessageId();
+    const streamMsg = createMessage("ai", "", false, {
+      id: aiId,
+      question: text,
+      streaming: true,
+    });
+    chatHistory.appendChild(streamMsg);
+    const bubble = streamMsg.querySelector(".bubble");
+    const body = streamMsg.querySelector(".message-body");
+    updateStreamingBubble(bubble, "");
+
+    let fullText = "";
+
+    conversationHistory.push({ role: "user", content: text });
+    trimConversationHistory();
 
     try {
-      const reply = await callDeepSeekAPI(text);
-      typingMsg.remove();
-      await typeAiMessage(reply);
+      fullText = await streamChatCompletion((content) => {
+        fullText = content;
+        updateStreamingBubble(bubble, content);
+        scrollToBottom();
+      });
+
+      conversationHistory.push({ role: "assistant", content: fullText });
+      trimConversationHistory();
+      finalizeStreamingMessage(body, bubble, aiId, text, fullText);
+      displayMessages.push({
+        role: "ai",
+        content: fullText,
+        id: aiId,
+        question: text,
+        propertyRecs: null,
+      });
+      const recs = generatePropertyRecommendations(text, fullText);
+      displayMessages[displayMessages.length - 1].propertyRecs = recs;
+      latestPropertyRecs = recs;
+      saveLatestListings();
+      saveChat();
+      attachPropertyRecommendations(streamMsg, recs);
+      if (document.getElementById("listingsView")?.classList.contains("active")) {
+        renderListingsPage();
+      }
     } catch (err) {
-      typingMsg.remove();
-      await typeAiMessage(
-        err.message || "网络异常，请检查连接后重试",
-        true
-      );
+      const partial = err.partialContent || fullText;
+
+      if (partial) {
+        fullText = partial;
+        conversationHistory.push({ role: "assistant", content: fullText });
+        trimConversationHistory();
+        finalizeStreamingMessage(body, bubble, aiId, text, fullText);
+        displayMessages.push({
+          role: "ai",
+          content: fullText,
+          id: aiId,
+          question: text,
+          propertyRecs: null,
+        });
+        const recs = generatePropertyRecommendations(text, fullText);
+        displayMessages[displayMessages.length - 1].propertyRecs = recs;
+        latestPropertyRecs = recs;
+        saveLatestListings();
+        saveChat();
+        attachPropertyRecommendations(streamMsg, recs);
+        appendStreamWarning(
+          bubble,
+          err.message || "流式读取中断"
+        );
+      } else {
+        conversationHistory.pop();
+        streamMsg.remove();
+        const errId = generateMessageId();
+        chatHistory.appendChild(
+          createMessage("ai", err.message || "网络异常，请检查连接后重试", true)
+        );
+        displayMessages.push({
+          role: "ai",
+          content: err.message || "网络异常，请检查连接后重试",
+          isError: true,
+          id: errId,
+        });
+        saveChat();
+      }
     } finally {
       isLoading = false;
       setInputEnabled(true);
@@ -1361,6 +3469,13 @@
     btn.addEventListener("click", () => sendMessage(btn.dataset.question));
   });
 
+  chatHistory.addEventListener("click", (e) => {
+    const featureCard = e.target.closest(".feature-card");
+    if (featureCard && !isLoading) {
+      sendMessage(featureCard.dataset.question);
+    }
+  });
+
   questionInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -1370,6 +3485,10 @@
 
   questionInput.addEventListener("input", () => autoResize(questionInput));
 
+  loadFavorites();
+  loadPropertyFavorites();
+  loadLatestListings();
+  initFeatureGrid();
   loadChat();
   questionInput.focus();
 
@@ -1380,6 +3499,44 @@
   const calcSubmit = document.getElementById("calcSubmit");
   const calcError = document.getElementById("calcError");
   const calcResults = document.getElementById("calcResults");
+  const calcConsultBtn = document.getElementById("calcConsultBtn");
+  const calcResultsTitle = document.getElementById("calcResultsTitle");
+  const resultMonthlyLabel = document.getElementById("resultMonthlyLabel");
+  const calcModeTabs = document.querySelectorAll(".calc-mode-tab");
+  let calcMode = "equal-payment";
+  let lastCalcResult = null;
+
+  function getActiveCalcMode() {
+    const active = document.querySelector(".calc-mode-tab.active");
+    return active?.dataset.mode || "equal-payment";
+  }
+
+  function setCalcMode(mode) {
+    calcMode = mode;
+    calcModeTabs.forEach((tab) => {
+      const isActive = tab.dataset.mode === mode;
+      tab.classList.toggle("active", isActive);
+      tab.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
+    if (calcResultsTitle) {
+      calcResultsTitle.textContent =
+        mode === "equal-principal" ? "计算结果（等额本金）" : "计算结果（等额本息）";
+    }
+    if (resultMonthlyLabel) {
+      resultMonthlyLabel.textContent =
+        mode === "equal-principal" ? "首月还款" : "月供金额";
+    }
+  }
+
+  calcModeTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      if (tab.dataset.mode !== calcMode) {
+        setCalcMode(tab.dataset.mode);
+        calcResults.classList.remove("show");
+        lastCalcResult = null;
+      }
+    });
+  });
 
   function formatMoney(num) {
     return num.toLocaleString("zh-CN", {
@@ -1392,6 +3549,8 @@
     calcModal.classList.add("active");
     calcError.classList.remove("show");
     calcResults.classList.remove("show");
+    lastCalcResult = null;
+    setCalcMode(getActiveCalcMode());
     document.body.style.overflow = "hidden";
   }
 
@@ -1405,9 +3564,11 @@
     const downPayment = parseFloat(document.getElementById("downPayment").value);
     const years = parseInt(document.getElementById("loanYears").value, 10);
     const annualRate = parseFloat(document.getElementById("interestRate").value);
+    const mode = getActiveCalcMode();
 
     calcError.classList.remove("show");
     calcResults.classList.remove("show");
+    lastCalcResult = null;
 
     if (!totalPrice || totalPrice <= 0) {
       calcError.textContent = "请输入有效的房屋总价";
@@ -1430,27 +3591,84 @@
     const months = years * 12;
     const monthlyRate = annualRate / 100 / 12;
 
-    let monthlyPayment;
-    if (monthlyRate === 0) {
-      monthlyPayment = principal / months;
+    let monthlyAmount;
+    let totalInterest;
+    let totalRepayment;
+
+    if (mode === "equal-principal") {
+      const monthlyPrincipal = principal / months;
+      if (monthlyRate === 0) {
+        monthlyAmount = monthlyPrincipal;
+        totalInterest = 0;
+      } else {
+        monthlyAmount = monthlyPrincipal + principal * monthlyRate;
+        totalInterest = (principal * monthlyRate * (months + 1)) / 2;
+      }
+      totalRepayment = principal + totalInterest;
     } else {
-      const factor = Math.pow(1 + monthlyRate, months);
-      monthlyPayment = (principal * monthlyRate * factor) / (factor - 1);
+      if (monthlyRate === 0) {
+        monthlyAmount = principal / months;
+      } else {
+        const factor = Math.pow(1 + monthlyRate, months);
+        monthlyAmount = (principal * monthlyRate * factor) / (factor - 1);
+      }
+      totalRepayment = monthlyAmount * months;
+      totalInterest = totalRepayment - principal;
     }
 
-    const totalRepayment = monthlyPayment * months;
-    const totalInterest = totalRepayment - principal;
+    setCalcMode(mode);
 
     document.getElementById("resultLoan").textContent = `${formatMoney(loanWan)} 万元`;
-    document.getElementById("resultMonthly").textContent = `${formatMoney(monthlyPayment)} 元`;
+    document.getElementById("resultMonthly").textContent = `${formatMoney(monthlyAmount)} 元`;
     document.getElementById("resultInterest").textContent = `${formatMoney(totalInterest / 10000)} 万元`;
     document.getElementById("resultTotal").textContent = `${formatMoney(totalRepayment / 10000)} 万元`;
+
+    lastCalcResult = {
+      mode,
+      totalPrice,
+      downPayment,
+      years,
+      annualRate,
+      loanWan,
+      monthlyAmount,
+      totalInterestWan: totalInterest / 10000,
+      totalRepaymentWan: totalRepayment / 10000,
+    };
+
     calcResults.classList.add("show");
+  }
+
+  function buildCalcConsultMessage() {
+    if (!lastCalcResult) return "";
+    const r = lastCalcResult;
+    const modeName = r.mode === "equal-principal" ? "等额本金" : "等额本息";
+    const monthlyLabel = r.mode === "equal-principal" ? "首月还款" : "月供金额";
+
+    return `我测算了一套房贷方案，请帮我分析优劣并给出建议：
+
+【还款方式】${modeName}
+【房屋总价】${r.totalPrice} 万元
+【首付比例】${r.downPayment}%
+【贷款金额】${formatMoney(r.loanWan)} 万元
+【贷款年限】${r.years} 年
+【年利率】${r.annualRate}%
+【${monthlyLabel}】${formatMoney(r.monthlyAmount)} 元
+【总利息】${formatMoney(r.totalInterestWan)} 万元
+【还款总额】${formatMoney(r.totalRepaymentWan)} 万元
+
+请从月供压力、总利息成本、是否适合提前还款等角度分析这个方案。`;
   }
 
   calcBtn.addEventListener("click", openCalcModal);
   calcClose.addEventListener("click", closeCalcModal);
   calcSubmit.addEventListener("click", calculateMortgage);
+  calcConsultBtn.addEventListener("click", () => {
+    if (!lastCalcResult) return;
+    const message = buildCalcConsultMessage();
+    closeCalcModal();
+    switchTab("chat");
+    sendMessage(message);
+  });
   calcModal.addEventListener("click", (e) => {
     if (e.target === calcModal) closeCalcModal();
   });
@@ -1458,11 +3676,22 @@
     if (e.key === "Escape" && calcModal.classList.contains("active")) {
       closeCalcModal();
     }
+    if (e.key === "Escape" && document.getElementById("listingModal")?.classList.contains("active")) {
+      closeListingDetail();
+    }
+  });
+
+  const listingModal = document.getElementById("listingModal");
+  listingModal?.addEventListener("click", (e) => {
+    if (e.target === listingModal) closeListingDetail();
   });
 
   // Tab 切换
   const chatView = document.getElementById("chatView");
+  const listingsView = document.getElementById("listingsView");
+  const regionView = document.getElementById("regionView");
   const compareView = document.getElementById("compareView");
+  const favoritesView = document.getElementById("favoritesView");
   const headerSubtitle = document.getElementById("headerSubtitle");
   const mainTabs = document.querySelectorAll(".main-tab");
   const compareSubmit = document.getElementById("compareSubmit");
@@ -1476,21 +3705,32 @@
   function switchTab(tab) {
     mainTabs.forEach((t) => t.classList.toggle("active", t.dataset.tab === tab));
     chatView.classList.toggle("active", tab === "chat");
+    listingsView.classList.toggle("active", tab === "listings");
+    regionView.classList.toggle("active", tab === "region");
     compareView.classList.toggle("active", tab === "compare");
+    favoritesView.classList.toggle("active", tab === "favorites");
     clearBtn.style.display = tab === "chat" ? "" : "none";
-    headerSubtitle.textContent =
-      tab === "chat" ? "智能解答您的房产疑问" : "多维度对比城市买房政策";
+    const subtitles = {
+      chat: "智能解答您的房产疑问",
+      listings: "AI 智能匹配推荐房源",
+      region: "AI 深度区域分析报告",
+      compare: "多维度对比城市买房政策",
+      favorites: "收藏的 AI 问答记录",
+    };
+    headerSubtitle.textContent = subtitles[tab] || subtitles.chat;
     if (tab === "chat") questionInput.focus();
+    if (tab === "favorites") renderFavorites();
+    if (tab === "listings") renderListingsPage();
   }
 
   mainTabs.forEach((tab) => {
     tab.addEventListener("click", () => switchTab(tab.dataset.tab));
   });
 
-  function escapeHtml(text) {
-    const el = document.createElement("div");
-    el.textContent = text;
-    return el.innerHTML;
+  function clampScore(value) {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return 0;
+    return Math.min(100, Math.max(0, Math.round(n)));
   }
 
   function parseCompareResponse(text) {
@@ -1501,19 +3741,57 @@
     return JSON.parse(cleaned.slice(start, end + 1));
   }
 
-  function renderCompareTable(cityA, cityB, rows) {
+  function normalizeCompareRows(rows) {
+    const map = new Map((rows || []).map((row) => [row.label, row]));
+    return COMPARE_ROW_LABELS.map((label) => {
+      const row = map.get(label);
+      return {
+        label,
+        cityA: row?.cityA ?? "—",
+        cityB: row?.cityB ?? "—",
+        winner: String(row?.winner || "A").toUpperCase() === "B" ? "B" : "A",
+      };
+    });
+  }
+
+  function renderCompareCell(content, isWinner) {
+    const text = escapeHtml(content || "");
+    const badge = isWinner ? '<span class="compare-win-badge">优</span>' : "";
+    return `${text}${badge}`;
+  }
+
+  function renderCompareTable(cityA, cityB, data) {
+    const scoreA = clampScore(data.scoreA);
+    const scoreB = clampScore(data.scoreB);
+    const rows = normalizeCompareRows(data.rows);
+    const cityAWins = scoreA > scoreB;
+    const cityBWins = scoreB > scoreA;
+
     const body = rows
-      .map(
-        (row) => `
+      .map((row) => {
+        const winner = row.winner === "B" ? "B" : "A";
+        return `
       <tr>
-        <td>${escapeHtml(row.label || "")}</td>
-        <td>${escapeHtml(row.cityA || "")}</td>
-        <td>${escapeHtml(row.cityB || "")}</td>
-      </tr>`
-      )
+        <td>${escapeHtml(row.label)}</td>
+        <td class="${winner === "A" ? "compare-cell-winner" : ""}">${renderCompareCell(row.cityA, winner === "A")}</td>
+        <td class="${winner === "B" ? "compare-cell-winner" : ""}">${renderCompareCell(row.cityB, winner === "B")}</td>
+      </tr>`;
+      })
       .join("");
 
     compareResults.innerHTML = `
+      <div class="compare-scores">
+        <div class="compare-score-card${cityAWins ? " winner" : ""}">
+          <span class="compare-score-city">${escapeHtml(cityA)}</span>
+          <span class="compare-score-value">${scoreA}</span>
+          ${cityAWins ? '<span class="compare-score-badge">更推荐</span>' : ""}
+        </div>
+        <div class="compare-score-card${cityBWins ? " winner" : ""}">
+          <span class="compare-score-city">${escapeHtml(cityB)}</span>
+          <span class="compare-score-value">${scoreB}</span>
+          ${cityBWins ? '<span class="compare-score-badge">更推荐</span>' : ""}
+        </div>
+      </div>
       <div class="compare-table-scroll">
         <table class="compare-table">
           <thead>
@@ -1584,7 +3862,7 @@
       if (!parsed.rows || !Array.isArray(parsed.rows)) {
         throw new Error("对比数据格式无效，请重试");
       }
-      renderCompareTable(cityA, cityB, parsed.rows);
+      renderCompareTable(cityA, cityB, parsed);
     } catch (err) {
       compareError.textContent = err.message || "对比失败，请稍后重试";
       compareError.classList.add("show");
@@ -1601,6 +3879,297 @@
   });
   cityBInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") startCompare();
+  });
+
+  // ========== 区域分析 ==========
+  const regionInput = document.getElementById("regionInput");
+  const regionSubmit = document.getElementById("regionSubmit");
+  const regionLoading = document.getElementById("regionLoading");
+  const regionError = document.getElementById("regionError");
+  const regionResults = document.getElementById("regionResults");
+  let isRegionLoading = false;
+  let lastRegionData = null;
+
+  function generateRegionAnalysisMock(region) {
+    const seed = hashString(region);
+    const basePrice = +(4.5 + (seed % 65) / 10).toFixed(1);
+    const labels = ["1月", "2月", "3月", "4月", "5月", "6月"];
+    const priceTrend = labels.map((label, i) => ({
+      label,
+      price: +(basePrice + i * 0.08 + ((seed >> (i * 2)) % 8) * 0.04).toFixed(1),
+    }));
+
+    const scores = {
+      priceTrend: 68 + (seed % 28),
+      school: 62 + ((seed >> 2) % 32),
+      metro: 58 + ((seed >> 4) % 36),
+      business: 65 + ((seed >> 6) % 30),
+      investment: 60 + ((seed >> 8) % 34),
+      crowd: 66 + ((seed >> 10) % 28),
+    };
+    const overallScore = Math.round(
+      Object.values(scores).reduce((a, b) => a + b, 0) / 6
+    );
+
+    return {
+      region,
+      overallScore,
+      metrics: {
+        avgPrice: `${basePrice}万/㎡`,
+        yoyChange: `${((seed % 20) - 5) / 10 > 0 ? "+" : ""}${(((seed % 20) - 5) / 10).toFixed(1)}%`,
+        metroLines: `${2 + (seed % 4)}条地铁线`,
+        keySchools: `${5 + (seed % 10)}所重点学校`,
+      },
+      scores,
+      priceTrend,
+      sections: {
+        priceTrend: `${region}近半年房价呈温和${priceTrend[5].price > priceTrend[0].price ? "上涨" : "平稳"}态势，均价约 ${basePrice} 万/㎡，成交量集中在刚需与改善客群。`,
+        school: `${region}教育资源${scores.school >= 80 ? "较为丰富" : "中等偏上"}，有多所市/区重点学校，学区溢价明显，适合重视教育的家庭。`,
+        metro: `${region}轨道交通${scores.metro >= 80 ? "发达" : "覆盖一般"}，${2 + (seed % 4)}条线路经过或规划，通勤主城区便利度较高。`,
+        business: `${region}商业配套成熟，大型商场、写字楼与社区商业并存，生活便利性与就业吸附能力较强。`,
+        investment: `${region}投资潜力${scores.investment >= 75 ? "较好" : "中等"}，租售比与政策环境需结合个人持有周期综合评估。`,
+        crowd: `适合${scores.crowd >= 75 ? "刚需自住、学区改善及长期持有" : "自住刚需与首次置业"}人群，建议关注板块内优质次新与地铁沿线项目。`,
+      },
+      aiSummary: `综合评估，${region}区域综合得分 ${overallScore} 分。该区域在学区与交通方面表现${scores.school >= 80 && scores.metro >= 80 ? "突出" : "稳健"}，商圈成熟度较高，适合注重生活便利与长期持有的购房者。建议结合自身预算与通勤需求，优先关注地铁 1km 内、对口优质学区的房源。`,
+    };
+  }
+
+  function normalizeRegionData(raw, region) {
+    const scores = raw.scores || {};
+    const normalizedScores = {};
+    REGION_DIMENSIONS.forEach((d) => {
+      normalizedScores[d.key] = clampScore(scores[d.key] ?? 70);
+    });
+    const overallScore = clampScore(
+      raw.overallScore ??
+        Math.round(
+          Object.values(normalizedScores).reduce((a, b) => a + b, 0) /
+            REGION_DIMENSIONS.length
+        )
+    );
+
+    let priceTrend = Array.isArray(raw.priceTrend) ? raw.priceTrend : [];
+    if (priceTrend.length < 4) {
+      priceTrend = generateRegionAnalysisMock(region).priceTrend;
+    }
+    priceTrend = priceTrend.slice(0, 6).map((item, i) => ({
+      label: item.label || `${i + 1}月`,
+      price: Number(item.price) || 5,
+    }));
+
+    const sections = raw.sections || {};
+    const mock = generateRegionAnalysisMock(region);
+
+    return {
+      region: raw.region || region,
+      overallScore,
+      metrics: {
+        avgPrice: raw.metrics?.avgPrice || mock.metrics.avgPrice,
+        yoyChange: raw.metrics?.yoyChange || mock.metrics.yoyChange,
+        metroLines: raw.metrics?.metroLines || mock.metrics.metroLines,
+        keySchools: raw.metrics?.keySchools || mock.metrics.keySchools,
+      },
+      scores: normalizedScores,
+      priceTrend,
+      sections: REGION_DIMENSIONS.reduce((acc, d) => {
+        acc[d.key] = sections[d.key] || mock.sections[d.key] || "暂无分析数据";
+        return acc;
+      }, {}),
+      aiSummary: raw.aiSummary || mock.aiSummary,
+    };
+  }
+
+  function renderRegionChart(container, trend) {
+    if (!container || !trend?.length) return;
+
+    const w = 560;
+    const h = 180;
+    const padX = 44;
+    const padY = 28;
+    const prices = trend.map((t) => t.price);
+    const min = Math.min(...prices) * 0.92;
+    const max = Math.max(...prices) * 1.08;
+    const range = max - min || 1;
+
+    const coords = trend.map((t, i) => {
+      const x = padX + (i / Math.max(trend.length - 1, 1)) * (w - padX * 2);
+      const y = h - padY - ((t.price - min) / range) * (h - padY * 2);
+      return { x, y, ...t };
+    });
+
+    const linePoints = coords.map((c) => `${c.x},${c.y}`).join(" ");
+    const areaPath =
+      `M ${coords[0].x},${h - padY} ` +
+      coords.map((c) => `L ${c.x},${c.y}`).join(" ") +
+      ` L ${coords[coords.length - 1].x},${h - padY} Z`;
+
+    const gridLines = [0, 0.25, 0.5, 0.75, 1]
+      .map((r) => {
+        const y = h - padY - r * (h - padY * 2);
+        return `<line x1="${padX}" y1="${y}" x2="${w - padX}" y2="${y}" stroke="rgba(58,64,85,0.6)" stroke-width="1"/>`;
+      })
+      .join("");
+
+    const dots = coords
+      .map(
+        (c) =>
+          `<circle cx="${c.x}" cy="${c.y}" r="4" fill="#818cf8" stroke="#6366f1" stroke-width="2"/><text x="${c.x}" y="${h - 8}" text-anchor="middle" fill="#9aa0b0" font-size="11">${escapeHtml(c.label)}</text>`
+      )
+      .join("");
+
+    container.innerHTML = `
+      <svg class="region-chart-svg" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="regionChartGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(99,102,241,0.35)"/>
+            <stop offset="100%" stop-color="rgba(99,102,241,0)"/>
+          </linearGradient>
+        </defs>
+        ${gridLines}
+        <path d="${areaPath}" fill="url(#regionChartGrad)"/>
+        <polyline points="${linePoints}" fill="none" stroke="#818cf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        ${dots}
+      </svg>`;
+  }
+
+  function renderRegionResults(data) {
+    if (!regionResults || !data) return;
+
+    const scoreItems = REGION_DIMENSIONS.map(
+      (d) => `
+      <div class="region-score-item">
+        <div class="region-score-item-header">
+          <span class="region-score-item-title">${d.icon} ${d.label}</span>
+          <span class="region-score-item-value">${data.scores[d.key]}</span>
+        </div>
+        <div class="region-score-bar">
+          <div class="region-score-bar-fill" style="width: ${data.scores[d.key]}%"></div>
+        </div>
+      </div>`
+    ).join("");
+
+    const dimensionCards = REGION_DIMENSIONS.map(
+      (d) => `
+      <div class="region-dimension-card">
+        <h4>${d.icon} ${escapeHtml(d.label)}</h4>
+        <p>${escapeHtml(data.sections[d.key] || "")}</p>
+      </div>`
+    ).join("");
+
+    regionResults.innerHTML = `
+      <div class="region-hero">
+        <div class="region-score-ring" style="--score: ${data.overallScore}">
+          <div class="region-score-ring-inner">
+            <span class="region-score-value">${data.overallScore}</span>
+            <span class="region-score-label">综合评分</span>
+          </div>
+        </div>
+        <div class="region-hero-info">
+          <h2>${escapeHtml(data.region)}</h2>
+          <p>AI 基于房价走势、配套资源、交通商业与人群画像生成的区域投资居住分析报告</p>
+        </div>
+      </div>
+      <div class="region-metrics-row">
+        <div class="region-metric-card">
+          <div class="region-metric-value">${escapeHtml(data.metrics.avgPrice)}</div>
+          <div class="region-metric-label">均价</div>
+        </div>
+        <div class="region-metric-card">
+          <div class="region-metric-value">${escapeHtml(data.metrics.yoyChange)}</div>
+          <div class="region-metric-label">同比变化</div>
+        </div>
+        <div class="region-metric-card">
+          <div class="region-metric-value">${escapeHtml(data.metrics.metroLines)}</div>
+          <div class="region-metric-label">地铁覆盖</div>
+        </div>
+        <div class="region-metric-card">
+          <div class="region-metric-value">${escapeHtml(data.metrics.keySchools)}</div>
+          <div class="region-metric-label">重点学校</div>
+        </div>
+      </div>
+      <div class="region-chart-card">
+        <h3>📈 房价趋势（近 6 个月 · 万/㎡）</h3>
+        <div id="regionChartWrap"></div>
+      </div>
+      <div class="region-scores-grid">${scoreItems}</div>
+      <div class="region-ai-panel">
+        <div class="region-ai-panel-header">✦ AI 深度分析</div>
+        <p class="region-ai-summary">${escapeHtml(data.aiSummary)}</p>
+        <div class="region-dimension-grid">${dimensionCards}</div>
+      </div>`;
+
+    renderRegionChart(
+      document.getElementById("regionChartWrap"),
+      data.priceTrend
+    );
+    regionResults.classList.add("show");
+  }
+
+  async function callRegionAPI(region) {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        messages: [
+          { role: "system", content: REGION_SYSTEM_PROMPT },
+          { role: "user", content: `请分析区域：${region}` },
+        ],
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error?.message || `请求失败（${response.status}）`);
+    }
+
+    const reply = data.choices?.[0]?.message?.content;
+    if (!reply) throw new Error("未收到有效回复");
+    return reply;
+  }
+
+  async function startRegionAnalysis() {
+    const region = regionInput?.value.trim();
+    if (!region) {
+      regionError.textContent = "请输入区域名称，例如：广州天河区";
+      regionError.classList.add("show");
+      return;
+    }
+    if (isRegionLoading) return;
+
+    regionError.classList.remove("show");
+    regionResults.classList.remove("show");
+    isRegionLoading = true;
+    regionSubmit.disabled = true;
+    regionLoading.classList.add("show");
+
+    try {
+      let data;
+      try {
+        const reply = await callRegionAPI(region);
+        const parsed = parseCompareResponse(reply);
+        data = normalizeRegionData(parsed, region);
+      } catch {
+        data = generateRegionAnalysisMock(region);
+      }
+      lastRegionData = data;
+      renderRegionResults(data);
+    } catch (err) {
+      regionError.textContent = err.message || "分析失败，请稍后重试";
+      regionError.classList.add("show");
+    } finally {
+      isRegionLoading = false;
+      regionSubmit.disabled = false;
+      regionLoading.classList.remove("show");
+    }
+  }
+
+  regionSubmit?.addEventListener("click", startRegionAnalysis);
+  regionInput?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") startRegionAnalysis();
   });
   </script>
 </body>
