@@ -58,10 +58,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 16px 24px;
+    padding: 16px clamp(24px, 3vw, 40px);
     border-bottom: 1px solid var(--border);
     background: rgba(15, 17, 23, 0.85);
     backdrop-filter: blur(12px);
+    width: 100%;
   }
 
   .header-brand {
@@ -146,20 +147,34 @@
     border-bottom: 1px solid var(--border);
     background: rgba(15, 17, 23, 0.75);
     backdrop-filter: blur(12px);
+    width: 100%;
   }
 
   .main-tabs {
     display: flex;
+    flex-wrap: wrap;
     gap: 4px;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1440px;
     margin: 0 auto;
-    padding: 0 24px;
-    overflow-x: auto;
-    scrollbar-width: none;
+    padding: 0 clamp(24px, 3vw, 40px);
+    overflow: visible;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    -webkit-overflow-scrolling: touch;
   }
 
   .main-tabs::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+  }
+
+  .main-tabs::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .main-tabs::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
   }
 
   .main-tab {
@@ -205,10 +220,10 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 clamp(24px, 3vw, 40px);
     overflow: hidden;
     min-height: 0;
   }
@@ -256,9 +271,12 @@
     padding: 16px 0 24px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
     scroll-behavior: smooth;
     min-height: 0;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   .chat-history::-webkit-scrollbar {
@@ -416,8 +434,8 @@
   }
 
   .bubble {
-    max-width: 75%;
-    padding: 12px 16px;
+    max-width: 82%;
+    padding: 14px 18px;
     border-radius: var(--radius);
     font-size: 0.9375rem;
     word-break: break-word;
@@ -437,11 +455,12 @@
   }
 
   .message-body {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 75%;
-    gap: 4px;
+    max-width: 82%;
+    gap: 6px;
   }
 
   .message-body .bubble {
@@ -449,19 +468,26 @@
   }
 
   .message-actions {
+    position: absolute;
+    top: -12px;
+    right: 8px;
     display: flex;
     align-items: center;
     gap: 4px;
-    padding-left: 2px;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 3;
+    transform: translateY(4px);
   }
 
   .message.ai:hover .message-actions,
   .message.ai .message-body:focus-within .message-actions {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
+    transform: translateY(0);
   }
 
   .msg-action-btn {
@@ -469,24 +495,29 @@
     align-items: center;
     gap: 4px;
     padding: 4px 10px;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     color: var(--text-secondary);
     font-size: 0.75rem;
     font-family: inherit;
     cursor: pointer;
-    transition: color 0.2s, background 0.2s;
+    transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
   }
 
   .msg-action-btn:hover {
     color: var(--text-primary);
     background: rgba(99, 102, 241, 0.12);
+    border-color: var(--accent);
+    transform: translateY(-1px);
   }
 
   .msg-action-btn.favorite-btn {
-    font-size: 0.9375rem;
+    font-size: 1.05rem;
     padding: 4px 8px;
+    min-width: 34px;
+    justify-content: center;
   }
 
   .msg-action-btn.favorite-btn.favorited {
@@ -502,12 +533,215 @@
     position: relative;
     z-index: 1;
     flex: 1;
-    max-width: 800px;
+    max-width: 1440px;
     width: 100%;
     margin: 0 auto;
-    padding: 32px 24px;
+    padding: 32px clamp(32px, 3.2vw, 48px);
     overflow-y: auto;
     min-height: 0;
+  }
+
+  .news-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px clamp(24px, 3vw, 40px) 40px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .news-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e8eaed 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .news-subtitle {
+    margin-top: 6px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .news-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-ai-btn {
+    height: 44px;
+    padding: 0 18px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  .news-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .news-filter-btn {
+    padding: 8px 14px;
+    background: rgba(34, 38, 51, 0.72);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+  }
+
+  .news-filter-btn.active,
+  .news-filter-btn:hover {
+    color: var(--text-primary);
+    border-color: rgba(99, 102, 241, 0.4);
+    background: rgba(99, 102, 241, 0.12);
+  }
+
+  .news-loading {
+    display: none;
+    text-align: center;
+    padding: 26px 16px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .news-loading.show {
+    display: block;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+
+  .news-card {
+    background: linear-gradient(180deg, rgba(34, 38, 51, 0.96) 0%, rgba(26, 29, 39, 0.92) 100%);
+    border: 1px solid rgba(99, 102, 241, 0.14);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .news-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 18px 40px rgba(99, 102, 241, 0.14);
+  }
+
+  .news-cover {
+    position: relative;
+    height: 168px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.14));
+  }
+
+  .news-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .news-hot {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(15, 17, 23, 0.75);
+    border: 1px solid rgba(251, 191, 36, 0.35);
+    color: #fbbf24;
+    font-size: 0.75rem;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+  }
+
+  .news-card-body {
+    padding: 18px 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .news-card h3 {
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .news-card p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .news-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .news-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    background: rgba(15,17,23,0.35);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .news-deep-btn {
+    padding: 8px 12px;
+    border: 1px solid rgba(99,102,241,0.35);
+    background: transparent;
+    color: var(--accent-hover);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  }
+
+  .news-deep-btn:hover {
+    background: rgba(99,102,241,0.12);
+    border-color: rgba(99,102,241,0.55);
+    transform: translateY(-1px);
   }
 
   .favorites-intro {
@@ -640,10 +874,10 @@
     position: relative;
     z-index: 1;
     flex: 1;
-    max-width: 800px;
+    max-width: 1440px;
     width: 100%;
     margin: 0 auto;
-    padding: 24px 20px 40px;
+    padding: 24px clamp(24px, 3vw, 40px) 40px;
     overflow-y: auto;
     min-height: 0;
   }
@@ -1007,10 +1241,10 @@
   }
 
   .input-wrapper {
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 clamp(24px, 3vw, 40px);
     display: flex;
     gap: 12px;
     align-items: flex-end;
@@ -1379,10 +1613,10 @@
     position: relative;
     z-index: 1;
     flex: 1;
-    max-width: 800px;
+    max-width: 1440px;
     width: 100%;
     margin: 0 auto;
-    padding: 24px 16px;
+    padding: 24px clamp(24px, 3vw, 40px);
     overflow-y: auto;
     min-height: 0;
   }
@@ -1536,6 +1770,22 @@
     transform: none;
   }
 
+  .compare-export-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    box-shadow: none;
+  }
+
+  .compare-export-btn:hover:not(:disabled) {
+    color: var(--text-primary);
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.12);
+    box-shadow: none;
+  }
+
   .compare-loading {
     display: none;
     text-align: center;
@@ -1642,10 +1892,10 @@
     position: relative;
     z-index: 1;
     flex: 1;
-    max-width: 960px;
+    max-width: 1440px;
     width: 100%;
     margin: 0 auto;
-    padding: 24px 20px 40px;
+    padding: 24px clamp(24px, 3vw, 40px) 40px;
     overflow-y: auto;
     min-height: 0;
   }
@@ -1710,8 +1960,8 @@
 
   .listings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 22px;
     margin-top: 24px;
   }
 
@@ -1750,8 +2000,9 @@
   .property-rec-panel {
     width: 100%;
     margin-left: 48px;
-    margin-top: 12px;
+    margin-top: 16px;
     animation: recFadeIn 0.45s ease;
+    max-width: calc(100% - 48px);
   }
 
   @keyframes recFadeIn {
@@ -1793,11 +2044,14 @@
 
   .property-rec-scroll {
     display: flex;
-    gap: 14px;
+    gap: 18px;
     overflow-x: auto;
-    padding-bottom: 8px;
+    overflow-y: hidden;
+    padding: 4px 2px 10px;
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
+    align-items: stretch;
+    width: 100%;
   }
 
   .property-rec-scroll::-webkit-scrollbar {
@@ -1810,20 +2064,23 @@
   }
 
   .listing-card {
-    flex: 0 0 280px;
+    flex: 0 0 340px;
+    min-width: 340px;
     scroll-snap-align: start;
-    background: rgba(34, 38, 51, 0.75);
-    backdrop-filter: blur(14px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(34, 38, 51, 0.98) 0%, rgba(26, 29, 39, 0.92) 100%);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 102, 241, 0.16);
+    border-radius: 22px;
     overflow: hidden;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s, background 0.25s;
   }
 
   .listing-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(99, 102, 241, 0.45);
-    box-shadow: 0 16px 40px rgba(99, 102, 241, 0.15);
+    transform: translateY(-6px);
+    border-color: rgba(129, 140, 248, 0.55);
+    background: linear-gradient(180deg, rgba(34, 38, 51, 1) 0%, rgba(24, 28, 40, 0.98) 100%);
+    box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
   }
 
   .listing-card--featured {
@@ -1854,12 +2111,12 @@
 
   .listing-card-image-wrap {
     position: relative;
-    height: 160px;
+    height: 200px;
     overflow: hidden;
   }
 
   .listing-card--featured .listing-card-image-wrap {
-    height: 180px;
+    height: 224px;
   }
 
   .listing-card-image {
@@ -1870,7 +2127,7 @@
   }
 
   .listing-card:hover .listing-card-image {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
   .listing-match {
@@ -1881,10 +2138,10 @@
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
-    background: rgba(15, 17, 23, 0.75);
-    backdrop-filter: blur(8px);
+    background: rgba(15, 17, 23, 0.72);
+    backdrop-filter: blur(10px);
     border-radius: 10px;
-    border: 1px solid rgba(99, 102, 241, 0.4);
+    border: 1px solid rgba(99, 102, 241, 0.32);
   }
 
   .listing-match strong {
@@ -1893,14 +2150,15 @@
   }
 
   .listing-card-body {
-    padding: 16px;
+    padding: 22px 22px 20px;
   }
 
   .listing-card-price {
-    font-size: 1.375rem;
+    font-size: 1.55rem;
     font-weight: 700;
     color: #f1f3f9;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
+    letter-spacing: 0.01em;
   }
 
   .listing-card-price span {
@@ -1910,28 +2168,29 @@
   }
 
   .listing-card-name {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.08rem;
+    font-weight: 650;
     color: var(--text-primary);
-    margin-bottom: 4px;
-    line-height: 1.35;
+    margin-bottom: 10px;
+    line-height: 1.5;
   }
 
   .listing-card-meta {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     color: var(--text-secondary);
-    margin-bottom: 10px;
+    margin-bottom: 16px;
+    line-height: 1.7;
   }
 
   .listing-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
+    gap: 8px;
+    margin-bottom: 18px;
   }
 
   .listing-tag {
-    padding: 3px 10px;
+    padding: 4px 11px;
     font-size: 0.6875rem;
     font-weight: 500;
     color: #c7d2fe;
@@ -1941,15 +2200,15 @@
   }
 
   .listing-card-actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 44px 1fr 1fr;
+    gap: 12px;
+    align-items: stretch;
   }
 
   .listing-btn {
-    flex: 1;
     min-width: 0;
-    padding: 9px 10px;
+    padding: 10px 12px;
     font-size: 0.75rem;
     font-family: inherit;
     font-weight: 500;
@@ -1957,6 +2216,8 @@
     cursor: pointer;
     transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
     white-space: nowrap;
+    width: 100%;
+    min-height: 42px;
   }
 
   .listing-btn:hover {
@@ -1964,9 +2225,8 @@
   }
 
   .listing-btn-fav {
-    flex: 0 0 auto;
-    width: 40px;
-    padding: 9px;
+    width: 44px;
+    padding: 10px 0;
     background: transparent;
     border: 1px solid var(--border);
     color: var(--text-secondary);
@@ -2069,10 +2329,10 @@
     position: relative;
     z-index: 1;
     flex: 1;
-    max-width: 960px;
+    max-width: 1440px;
     width: 100%;
     margin: 0 auto;
-    padding: 24px 20px 40px;
+    padding: 24px clamp(32px, 3.2vw, 48px) 40px;
     overflow-y: auto;
     min-height: 0;
   }
@@ -2416,6 +2676,23 @@
       padding: 12px 16px;
     }
 
+    .main-tabs {
+      width: 100%;
+      padding: 0 16px;
+    }
+
+    .chat-container,
+    .input-wrapper,
+    .listings-container,
+    .compare-container,
+    .region-container,
+    .notes-container,
+    .favorites-container,
+    .news-container,
+    .chat-history {
+      max-width: 100%;
+    }
+
     .header-logo {
       width: 36px;
       height: 36px;
@@ -2449,7 +2726,15 @@
     }
 
     .message.ai .message-actions {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .message.ai:hover .message-actions,
+    .message.ai .message-body:focus-within .message-actions {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
 
@@ -2482,7 +2767,7 @@
     .favorites-container { padding: 24px 16px; }
     .property-rec-panel { margin-left: 0; }
     .message.ai.has-listings .message-body { max-width: calc(100% - 44px); }
-    .listing-card { flex: 0 0 260px; }
+    .listing-card { flex: 0 0 280px; }
     .listings-grid { grid-template-columns: 1fr; }
     .region-metrics-row { grid-template-columns: repeat(2, 1fr); }
     .region-scores-grid { grid-template-columns: 1fr; }
@@ -2516,6 +2801,7 @@
       <button class="main-tab" type="button" data-tab="compare">城市对比</button>
       <button class="main-tab" type="button" data-tab="notes">看房笔记</button>
       <button class="main-tab" type="button" data-tab="favorites">收藏</button>
+      <button class="main-tab" type="button" data-tab="news">资讯</button>
     </nav>
   </div>
 
@@ -2605,6 +2891,7 @@
         </div>
       </div>
       <button class="compare-submit" id="compareSubmit" type="button">开始对比</button>
+      <button class="compare-submit compare-export-btn" id="exportPdfBtn" type="button" style="display: none;">导出PDF报告</button>
       <div class="compare-loading" id="compareLoading">
         <div class="typing-indicator"><span></span><span></span><span></span></div>
         正在分析对比数据，请稍候...
@@ -2666,6 +2953,32 @@
         <p class="favorites-empty-desc">在 AI 问答中，将鼠标悬停在回答上，点击 ★ 即可收藏有价值的回复</p>
       </div>
       <div class="favorites-list" id="favoritesList"></div>
+    </div>
+  </div>
+
+  <div id="newsView" class="page-view">
+    <div class="news-container">
+      <div class="news-header">
+        <div>
+          <h2 class="news-title">房产资讯</h2>
+          <p class="news-subtitle">AI 聚合今日热点，为您快速掌握市场动态</p>
+        </div>
+        <div class="news-actions">
+          <button class="news-ai-btn" id="newsAiBtn" type="button">AI生成今日资讯</button>
+        </div>
+      </div>
+      <div class="news-filters" id="newsFilters">
+        <button class="news-filter-btn active" type="button" data-filter="all">全部</button>
+        <button class="news-filter-btn" type="button" data-filter="政策">政策</button>
+        <button class="news-filter-btn" type="button" data-filter="市场">市场</button>
+        <button class="news-filter-btn" type="button" data-filter="学区">学区</button>
+        <button class="news-filter-btn" type="button" data-filter="贷款">贷款</button>
+      </div>
+      <div class="news-loading" id="newsLoading">
+        <div class="typing-indicator"><span></span><span></span><span></span></div>
+        正在生成今日房产资讯...
+      </div>
+      <div class="news-grid" id="newsGrid"></div>
     </div>
   </div>
 
@@ -2738,6 +3051,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script>
   /* ========== API 配置 ========== */
   const API_KEY = "sk-f2ac4dd7775c4afd81f5ba01a5167518";
@@ -3461,14 +3775,14 @@
       });
     }
     saveFavorites();
-    updateFavoriteButtons(messageId);
+    syncFavoriteButtonState(messageId);
     renderFavorites();
   }
 
   function removeFavorite(messageId) {
     favorites = favorites.filter((item) => item.messageId !== messageId);
     saveFavorites();
-    updateFavoriteButtons(messageId);
+    syncFavoriteButtonState(messageId);
     renderFavorites();
   }
 
@@ -3530,6 +3844,79 @@
     });
   }
 
+  const DEFAULT_NEWS = [
+    { title: "一线城市二手房挂牌量继续上升", summary: "多地二手房市场供给增加，买家议价空间扩大，改善型需求活跃。", time: "今天 09:20", tag: "市场", hot: "热点", cover: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80" },
+    { title: "房贷利率维持低位，购房成本继续优化", summary: "近期主流城市房贷利率整体平稳，首套与改善需求贷款环境友好。", time: "今天 08:50", tag: "贷款", hot: "焦点", cover: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" },
+    { title: "核心板块学区房关注度回升", summary: "教育资源稳定的核心地段房源重新受到家庭购房者关注。", time: "昨天 21:10", tag: "学区", hot: "热搜", cover: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80" },
+    { title: "多个城市优化购房资格审核流程", summary: "部分城市在网签、资格核验方面持续提速，交易效率明显提升。", time: "昨天 18:30", tag: "政策", hot: "快讯", cover: "https://images.unsplash.com/photo-1502005097973-6a7082348e28?w=800&q=80" },
+    { title: "新房供应节奏加快，改善盘占比提升", summary: "开发商集中推盘，三房四房改善产品更受中高预算买家青睐。", time: "昨天 16:40", tag: "市场", hot: "热门", cover: "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=80" },
+    { title: "地铁沿线房源仍是通勤刚需首选", summary: "靠近轨交站点、通勤半径短的房源依旧保持较高成交热度。", time: "昨天 14:05", tag: "市场", hot: "推荐", cover: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&q=80" },
+    { title: "租售比关注度提升，长持型买家增多", summary: "更多购房者开始同时关注自住与资产保值两种目标。", time: "昨天 11:40", tag: "贷款", hot: "关注", cover: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" },
+    { title: "周边配套成熟板块成交更稳健", summary: "商超、医院、公园等成熟配套对成交支持作用继续增强。", time: "前天 20:10", tag: "市场", hot: "精选", cover: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80" },
+  ];
+  let newsState = { items: DEFAULT_NEWS, filter: "all" };
+
+  function renderNewsCards(items = newsState.items) {
+    const grid = document.getElementById("newsGrid");
+    const loading = document.getElementById("newsLoading");
+    if (!grid) return;
+    if (loading) loading.classList.remove("show");
+    const filtered = newsState.filter === "all" ? items : items.filter((item) => item.tag === newsState.filter || item.title.includes(newsState.filter));
+    grid.innerHTML = filtered.slice(0, 8).map((item, idx) => `
+      <article class="news-card">
+        <div class="news-cover">
+          <img src="${escapeHtml(item.cover || DEFAULT_NEWS[idx % DEFAULT_NEWS.length].cover)}" alt="${escapeHtml(item.title || "资讯封面")}" loading="lazy">
+          <span class="news-hot">${escapeHtml(item.hot || "热点")}</span>
+        </div>
+        <div class="news-card-body">
+          <span class="listing-tag" style="width: fit-content; margin-bottom: 2px;">${escapeHtml(item.tag || "资讯")}</span>
+          <h3>${escapeHtml(item.title || `房产资讯 ${idx + 1}`)}</h3>
+          <p>${escapeHtml(item.summary || "")}</p>
+          <div class="news-card-footer">
+            <span class="news-time">${escapeHtml(item.time || "今天")}</span>
+            <button class="news-deep-btn" type="button" data-action="news-deep" data-news-title="${escapeHtml(item.title || "")}" data-news-summary="${escapeHtml(item.summary || "")}">深度解读</button>
+          </div>
+        </div>
+      </article>`).join("");
+  }
+
+  async function generateTodayNews() {
+    const loading = document.getElementById("newsLoading");
+    const grid = document.getElementById("newsGrid");
+    if (loading) loading.classList.add("show");
+    if (grid) grid.innerHTML = "";
+    const prompt = "请生成8条最新房产资讯，返回JSON数组，每项包含title, summary, time, tag, hot, cover。cover请给出可访问的图片URL。内容简洁、真实感强、偏今日热点。";
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
+        body: JSON.stringify({ model: MODEL, messages: [{ role: "system", content: "你是房产资讯编辑，必须返回纯JSON数组，不要代码块，不要其他文字。" }, { role: "user", content: prompt }] }),
+      });
+      const data = await response.json();
+      const text = data.choices?.[0]?.message?.content || "";
+      const cleaned = text.replace(/```json\s?|```/gi, "").trim();
+      const parsed = JSON.parse(cleaned);
+      newsState.items = Array.isArray(parsed) ? parsed : DEFAULT_NEWS;
+      renderNewsCards(newsState.items);
+    } catch {
+      newsState.items = DEFAULT_NEWS;
+      renderNewsCards(DEFAULT_NEWS);
+    }
+  }
+
+  function handleNewsDeepDive(title, summary) {
+    switchTab("chat");
+    sendMessage(`请结合以下房产资讯做深度解读，并给出对购房者的影响和建议：\n\n标题：${title}\n摘要：${summary}`);
+  }
+
+  document.getElementById("newsFilters")?.addEventListener("click", (e) => {
+    const btn = e.target.closest(".news-filter-btn");
+    if (!btn) return;
+    newsState.filter = btn.dataset.filter || "all";
+    document.querySelectorAll(".news-filter-btn").forEach((b) => b.classList.toggle("active", b === btn));
+    renderNewsCards(newsState.items);
+  });
+
   if (typeof marked !== "undefined") {
     marked.setOptions({ breaks: true, gfm: true });
   }
@@ -3548,6 +3935,16 @@
       bubble.textContent = content;
       bubble.classList.remove("md-content");
     }
+  }
+
+  function syncFavoriteButtonState(messageId) {
+    const favorited = isFavorited(messageId);
+    document.querySelectorAll(`.favorite-btn[data-message-id="${messageId}"]`).forEach((btn) => {
+      btn.classList.toggle("favorited", favorited);
+      btn.textContent = favorited ? "★" : "☆";
+      btn.title = favorited ? "取消收藏" : "收藏";
+      btn.setAttribute("aria-label", btn.title);
+    });
   }
 
   function saveChat() {
@@ -3580,6 +3977,7 @@
             question: msg.question,
           });
           chatHistory.appendChild(el);
+          if (msg.role === "ai" && msg.id) syncFavoriteButtonState(msg.id);
           if (msg.propertyRecs) {
             attachPropertyRecommendations(el, msg.propertyRecs);
           }
@@ -3634,6 +4032,16 @@
     const actions = document.createElement("div");
     actions.className = "message-actions";
 
+    const favorited = isFavorited(id);
+    const favBtn = document.createElement("button");
+    favBtn.className = "msg-action-btn favorite-btn" + (favorited ? " favorited" : "");
+    favBtn.type = "button";
+    favBtn.textContent = favorited ? "★" : "☆";
+    favBtn.dataset.messageId = id;
+    favBtn.title = favorited ? "取消收藏" : "收藏";
+    favBtn.setAttribute("aria-label", favBtn.title);
+    favBtn.addEventListener("click", () => toggleFavorite(id, question, content));
+
     const copyBtn = document.createElement("button");
     copyBtn.className = "msg-action-btn copy-btn";
     copyBtn.type = "button";
@@ -3653,18 +4061,8 @@
       }
     });
 
-    const favorited = isFavorited(id);
-    const favBtn = document.createElement("button");
-    favBtn.className = "msg-action-btn favorite-btn" + (favorited ? " favorited" : "");
-    favBtn.type = "button";
-    favBtn.textContent = favorited ? "★" : "☆";
-    favBtn.dataset.messageId = id;
-    favBtn.title = favorited ? "取消收藏" : "收藏";
-    favBtn.setAttribute("aria-label", favBtn.title);
-    favBtn.addEventListener("click", () => toggleFavorite(id, question, content));
-
-    actions.appendChild(copyBtn);
     actions.appendChild(favBtn);
+    actions.appendChild(copyBtn);
     return actions;
   }
 
@@ -3686,8 +4084,8 @@
     if (role === "ai" && id && !isError && !meta.streaming) {
       const body = document.createElement("div");
       body.className = "message-body";
-      body.appendChild(bubble);
       body.appendChild(buildAiMessageActions(id, question, content));
+      body.appendChild(bubble);
       msg.appendChild(body);
     } else {
       msg.appendChild(bubble);
@@ -3705,8 +4103,12 @@
   function finalizeStreamingMessage(body, bubble, aiId, question, text) {
     setBubbleContent(bubble, "ai", text);
     bubble.classList.remove("streaming");
-    if (body && !body.querySelector(".message-actions")) {
-      body.appendChild(buildAiMessageActions(aiId, question, text));
+    if (body) {
+      let actions = body.querySelector(".message-actions");
+      if (!actions) {
+        actions = buildAiMessageActions(aiId, question, text);
+        body.insertBefore(actions, bubble);
+      }
     }
   }
 
@@ -3946,6 +4348,7 @@
   loadPropertyFavorites();
   loadLatestListings();
   initFeatureGrid();
+  renderNewsCards();
   loadChat();
   questionInput.focus();
 
@@ -4150,15 +4553,18 @@
   const compareView = document.getElementById("compareView");
   const notesView = document.getElementById("notesView");
   const favoritesView = document.getElementById("favoritesView");
+  const newsView = document.getElementById("newsView");
   const headerSubtitle = document.getElementById("headerSubtitle");
   const mainTabs = document.querySelectorAll(".main-tab");
   const compareSubmit = document.getElementById("compareSubmit");
+  const exportPdfBtn = document.getElementById("exportPdfBtn");
   const compareLoading = document.getElementById("compareLoading");
   const compareError = document.getElementById("compareError");
   const compareResults = document.getElementById("compareResults");
   const cityAInput = document.getElementById("cityA");
   const cityBInput = document.getElementById("cityB");
   let isCompareLoading = false;
+  let lastCompareData = null;
 
   function switchTab(tab) {
     mainTabs.forEach((t) => t.classList.toggle("active", t.dataset.tab === tab));
@@ -4168,6 +4574,7 @@
     compareView.classList.toggle("active", tab === "compare");
     notesView.classList.toggle("active", tab === "notes");
     favoritesView.classList.toggle("active", tab === "favorites");
+    newsView.classList.toggle("active", tab === "news");
     clearBtn.style.display = tab === "chat" ? "" : "none";
     const subtitles = {
       chat: "智能解答您的房产疑问",
@@ -4176,12 +4583,14 @@
       compare: "多维度对比城市买房政策",
       notes: "记录房源，AI 智能分析",
       favorites: "收藏的 AI 问答记录",
+      news: "AI 今日房产资讯",
     };
     headerSubtitle.textContent = subtitles[tab] || subtitles.chat;
     if (tab === "chat") questionInput.focus();
     if (tab === "favorites") renderFavorites();
     if (tab === "notes") renderNotes();
     if (tab === "listings") renderListingsPage();
+    if (tab === "news") renderNewsCards();
   }
 
   mainTabs.forEach((tab) => {
@@ -4219,6 +4628,19 @@
     const text = escapeHtml(content || "");
     const badge = isWinner ? '<span class="compare-win-badge">优</span>' : "";
     return `${text}${badge}`;
+  }
+
+  function normalizeCompareReportData(data) {
+    const rows = normalizeCompareRows(data.rows);
+    const selectedLabels = new Set(["限购政策", "首付比例", "落户要求", "房价水平", "适合人群"]);
+    return rows.filter((row) => selectedLabels.has(row.label));
+  }
+
+  function getCompareReportState() {
+    if (!compareResults.classList.contains("show")) return null;
+    const data = lastCompareData;
+    if (!data?.cityA || !data?.cityB || !data?.rows) return null;
+    return data;
   }
 
   function renderCompareTable(cityA, cityB, data) {
@@ -4266,6 +4688,9 @@
         </table>
       </div>`;
     compareResults.classList.add("show");
+    exportPdfBtn.style.display = "inline-flex";
+    exportPdfBtn.disabled = false;
+    lastCompareData = { cityA, cityB, scoreA, scoreB, rows };
   }
 
   async function callCompareAPI(cityA, cityB) {
@@ -4294,12 +4719,107 @@
     return reply;
   }
 
+  function splitTextToLines(doc, text, maxWidth) {
+    return doc.splitTextToSize(String(text || ""), maxWidth);
+  }
+
+  function exportComparePdf() {
+    const state = getCompareReportState();
+    if (!state) return;
+    const { jsPDF } = window.jspdf || {};
+    if (!jsPDF) {
+      showListingToast("PDF 库加载失败，请稍后重试");
+      return;
+    }
+
+    const doc = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 14;
+    const contentWidth = pageWidth - margin * 2;
+    const lineHeight = 6;
+    let y = 18;
+
+    doc.setFillColor(15, 17, 23);
+    doc.rect(0, 0, pageWidth, pageHeight, "F");
+    doc.setTextColor(232, 234, 237);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("城市对比报告", margin, y);
+
+    y += 10;
+    doc.setFontSize(10);
+    doc.setTextColor(154, 160, 176);
+    doc.text(`对比城市：${state.cityA} VS ${state.cityB}`, margin, y);
+    y += 8;
+
+    const scoreText = `综合评分：${state.cityA} ${state.scoreA} 分，${state.cityB} ${state.scoreB} 分`;
+    doc.setTextColor(232, 234, 237);
+    doc.text(scoreText, margin, y);
+    y += 10;
+
+    const headers = ["对比项", state.cityA, state.cityB];
+    const colWidths = [32, (contentWidth - 32) / 2, (contentWidth - 32) / 2];
+    const tableX = margin;
+
+    const drawCell = (x, topY, width, lines, fill) => {
+      const height = Math.max(8, lines.length * lineHeight + 4);
+      doc.setFillColor(...fill);
+      doc.rect(x, topY, width, height, "F");
+      doc.setDrawColor(58, 64, 85);
+      doc.rect(x, topY, width, height);
+      doc.setTextColor(232, 234, 237);
+      doc.text(lines, x + 2, topY + 5);
+      return height;
+    };
+
+    const headerHeights = headers.map((h, i) => splitTextToLines(doc, h, colWidths[i] - 4));
+    const headerHeight = Math.max(...headerHeights.map((l) => l.length * lineHeight + 4));
+    let rowY = y;
+    headers.forEach((h, i) => {
+      const lines = splitTextToLines(doc, h, colWidths[i] - 4);
+      drawCell(tableX + colWidths.slice(0, i).reduce((a, b) => a + b, 0), rowY, colWidths[i], lines, [34, 38, 51]);
+    });
+    y += headerHeight;
+
+    state.rows.forEach((row) => {
+      const values = [row.label, row.cityA, row.cityB];
+      const cellLines = values.map((v, i) => splitTextToLines(doc, v, colWidths[i] - 4));
+      const rowHeight = Math.max(...cellLines.map((l) => l.length * lineHeight + 4));
+      if (y + rowHeight > pageHeight - margin) {
+        doc.addPage();
+        doc.setFillColor(15, 17, 23);
+        doc.rect(0, 0, pageWidth, pageHeight, "F");
+        y = margin;
+      }
+      let x = tableX;
+      values.forEach((v, i) => {
+        const isLabel = i === 0;
+        const lines = splitTextToLines(doc, v, colWidths[i] - 4);
+        doc.setFillColor(isLabel ? 26 : 34, isLabel ? 29 : 38, isLabel ? 39 : 51);
+        doc.rect(x, y, colWidths[i], rowHeight, "F");
+        doc.setDrawColor(58, 64, 85);
+        doc.rect(x, y, colWidths[i], rowHeight);
+        doc.setTextColor(isLabel ? 154 : 232, isLabel ? 160 : 234, isLabel ? 176 : 237);
+        doc.text(lines, x + 2, y + 5);
+        x += colWidths[i];
+      });
+      y += rowHeight;
+    });
+
+    const filename = `城市对比报告_${state.cityA}_vs_${state.cityB}.pdf`;
+    doc.save(filename);
+    showListingToast("PDF 报告已生成并下载");
+  }
+
   async function startCompare() {
     const cityA = cityAInput.value.trim();
     const cityB = cityBInput.value.trim();
 
     compareError.classList.remove("show");
     compareResults.classList.remove("show");
+    exportPdfBtn.style.display = "none";
+    lastCompareData = null;
 
     if (!cityA || !cityB) {
       compareError.textContent = "请输入两个城市名称";
@@ -4335,6 +4855,13 @@
   }
 
   compareSubmit.addEventListener("click", startCompare);
+  exportPdfBtn?.addEventListener("click", exportComparePdf);
+  document.getElementById("newsAiBtn")?.addEventListener("click", generateTodayNews);
+  document.getElementById("newsGrid")?.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-action='news-deep']");
+    if (!btn) return;
+    handleNewsDeepDive(btn.dataset.newsTitle || "", btn.dataset.newsSummary || "");
+  });
   cityAInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") startCompare();
   });
