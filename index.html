@@ -212,6 +212,7 @@
 
   .page-view.active {
     display: flex;
+    padding-bottom: 120px;
   }
 
   .chat-container {
@@ -220,10 +221,10 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    max-width: 1200px;
     width: 100%;
-    margin: 0 auto;
-    padding: 0 clamp(24px, 3vw, 40px);
+    max-width: none;
+    margin: 0;
+    padding: 0 clamp(24px, 3vw, 40px) 140px;
     overflow: hidden;
     min-height: 0;
   }
@@ -275,8 +276,8 @@
     scroll-behavior: smooth;
     min-height: 0;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
   }
 
   .chat-history::-webkit-scrollbar {
@@ -434,8 +435,9 @@
   }
 
   .bubble {
-    max-width: 82%;
-    padding: 14px 18px;
+    width: 100%;
+    max-width: 100%;
+    padding: 16px 20px;
     border-radius: var(--radius);
     font-size: 0.9375rem;
     word-break: break-word;
@@ -459,7 +461,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 82%;
+    max-width: min(100%, 1200px);
     gap: 6px;
   }
 
@@ -742,6 +744,306 @@
     background: rgba(99,102,241,0.12);
     border-color: rgba(99,102,241,0.55);
     transform: translateY(-1px);
+  }
+
+  /* ========== 户型评估 ========== */
+  .layout-container {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    max-width: 1440px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 32px clamp(24px, 3vw, 40px) 40px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  .layout-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .layout-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e8eaed 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .layout-subtitle {
+    margin-top: 6px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .layout-ai-btn {
+    height: 44px;
+    padding: 0 18px;
+    background: linear-gradient(135deg, var(--accent), #7c3aed);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px var(--accent-glow);
+  }
+
+  .layout-form-card,
+  .layout-result {
+    background: linear-gradient(180deg, rgba(34,38,51,0.95) 0%, rgba(26,29,39,0.92) 100%);
+    border: 1px solid rgba(99,102,241,0.14);
+    border-radius: 20px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+  }
+
+  .layout-form-card {
+    padding: 20px;
+    margin-bottom: 18px;
+  }
+
+  .layout-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .layout-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+  }
+
+  .layout-field input {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .layout-field input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .layout-loading {
+    display: none;
+    text-align: center;
+    padding: 26px 16px;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+
+  .layout-loading.show {
+    display: block;
+  }
+
+  .layout-error {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: var(--radius-sm);
+    color: #fca5a5;
+    font-size: 0.875rem;
+  }
+
+  .layout-error.show {
+    display: block;
+  }
+
+  .layout-result {
+    display: none;
+    margin-top: 16px;
+    padding: 20px;
+  }
+
+  .layout-result.show {
+    display: block;
+  }
+
+  .layout-score-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .layout-score-ring {
+    --score: 70;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) calc(var(--score) * 10%), rgba(42,47,62,0.9) 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 24px var(--accent-glow);
+    flex-shrink: 0;
+  }
+
+  .layout-score-ring-inner {
+    width: 86px;
+    height: 86px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .layout-score-value {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+    line-height: 1;
+  }
+
+  .layout-score-label {
+    margin-top: 4px;
+    font-size: 0.6875rem;
+    color: var(--text-secondary);
+  }
+
+  .layout-score-copy h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .layout-score-copy p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .layout-report-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .layout-report-card {
+    padding: 16px;
+    background: rgba(15,17,23,0.32);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .layout-report-card h4 {
+    font-size: 0.875rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+
+  .layout-report-card ul {
+    margin: 0;
+    padding-left: 1.2em;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .layout-report-card li + li {
+    margin-top: 6px;
+  }
+
+  .layout-label-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .layout-label-chip {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.28);
+    color: #c7d2fe;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .layout-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .layout-metric-card {
+    padding: 16px;
+    background: rgba(15, 17, 23, 0.32);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .layout-metric-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .layout-metric-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .layout-metric-score {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+  }
+
+  .layout-metric-bar {
+    height: 8px;
+    background: var(--bg-input);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .layout-metric-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), #8b5cf6);
+  }
+
+  .news-card-badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .news-category-tag {
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(99,102,241,0.25);
+    color: #c7d2fe;
+    background: rgba(99,102,241,0.12);
+    font-size: 0.6875rem;
+    font-weight: 600;
   }
 
   .favorites-intro {
@@ -1113,7 +1415,7 @@
   }
 
   .message.ai .bubble.md-content {
-    line-height: 1.65;
+    line-height: 1.75;
   }
 
   .message.ai .bubble.md-content > *:first-child {
@@ -1231,19 +1533,22 @@
   }
 
   .input-area {
-    position: relative;
-    z-index: 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
     padding: 16px 0 24px;
     border-top: 1px solid var(--border);
-    background: rgba(15, 17, 23, 0.6);
+    background: rgba(15, 17, 23, 0.92);
     backdrop-filter: blur(12px);
     overflow: visible;
   }
 
   .input-wrapper {
-    max-width: 1200px;
+    max-width: none;
     width: 100%;
-    margin: 0 auto;
+    margin: 0;
     padding: 0 clamp(24px, 3vw, 40px);
     display: flex;
     gap: 12px;
@@ -1779,6 +2084,23 @@
     box-shadow: none;
   }
 
+  .compare-pdf-header {
+    color: #e8eaed;
+    margin-bottom: 16px;
+  }
+
+  .compare-pdf-title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .compare-pdf-subtitle {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #9aa0b0;
+  }
+
   .compare-export-btn:hover:not(:disabled) {
     color: var(--text-primary);
     border-color: var(--accent);
@@ -1912,6 +2234,100 @@
     margin-bottom: 16px;
   }
 
+  .listings-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .listings-sidebar {
+    position: sticky;
+    top: 18px;
+  }
+
+  .listings-main {
+    min-width: 0;
+  }
+
+  .listings-panel {
+    padding: 22px 22px 20px;
+    background: rgba(34, 38, 51, 0.65);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .listings-panel + .listings-panel {
+    margin-top: 16px;
+  }
+
+  .listings-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-hover);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  .listings-panel-text {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .listings-panel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .listings-panel-chip {
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(15, 17, 23, 0.32);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .listings-filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 0;
+  }
+
+  .listings-filter-btn {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(15, 17, 23, 0.3);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .listings-filter-btn.active {
+    color: #fff;
+    border-color: rgba(99,102,241,0.5);
+    background: rgba(99,102,241,0.18);
+  }
+
+  @media (min-width: 1024px) {
+    .listings-grid {
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 24px;
+      margin-top: 0;
+    }
+  }
+
   .listings-title {
     font-size: 1.25rem;
     font-weight: 700;
@@ -2003,6 +2419,108 @@
     margin-top: 16px;
     animation: recFadeIn 0.45s ease;
     max-width: calc(100% - 48px);
+  }
+
+  @media (min-width: 1024px) {
+    .message.ai.has-listings {
+      display: grid;
+      grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      flex-wrap: nowrap;
+    }
+
+    .message.ai.has-listings .message-body {
+      max-width: none;
+      margin-right: 0;
+    }
+
+    .property-rec-panel {
+      margin-left: 0;
+      margin-top: 0;
+      max-width: none;
+      position: sticky;
+      top: 16px;
+      align-self: start;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .property-rec-panel {
+      margin-left: 0;
+      max-width: 100%;
+    }
+
+    .property-rec-scroll {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(420px, 1fr);
+      gap: 24px;
+      padding-bottom: 16px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .listing-card {
+      flex: 0 0 auto;
+      min-width: 420px;
+      border-radius: 24px;
+    }
+
+    .listing-card--featured {
+      flex-basis: 460px;
+      min-width: 460px;
+    }
+
+    .listing-card-image-wrap {
+      height: 240px;
+    }
+
+    .listing-card-body {
+      padding: 28px 28px 26px;
+    }
+
+    .listing-card-price {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .listing-card-name {
+      font-size: 1.22rem;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    .listing-card-meta {
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+      line-height: 1.85;
+    }
+
+    .listing-tags {
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .listing-tag {
+      padding: 6px 13px;
+      font-size: 0.72rem;
+    }
+
+    .listing-card-actions {
+      gap: 12px;
+      grid-template-columns: 48px 1fr 1fr;
+    }
+
+    .listing-btn {
+      min-height: 50px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+    }
+
+    .listing-btn-fav {
+      width: 48px;
+    }
   }
 
   @keyframes recFadeIn {
@@ -2150,14 +2668,14 @@
   }
 
   .listing-card-body {
-    padding: 22px 22px 20px;
+    padding: 24px 24px 22px;
   }
 
   .listing-card-price {
-    font-size: 1.55rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: #f1f3f9;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     letter-spacing: 0.01em;
   }
 
@@ -2168,56 +2686,57 @@
   }
 
   .listing-card-name {
-    font-size: 1.08rem;
+    font-size: 1.12rem;
     font-weight: 650;
     color: var(--text-primary);
-    margin-bottom: 10px;
-    line-height: 1.5;
+    margin-bottom: 12px;
+    line-height: 1.55;
   }
 
   .listing-card-meta {
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 16px;
-    line-height: 1.7;
+    margin-bottom: 18px;
+    line-height: 1.8;
   }
 
   .listing-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
   .listing-tag {
-    padding: 4px 11px;
+    padding: 5px 12px;
     font-size: 0.6875rem;
-    font-weight: 500;
+    font-weight: 600;
     color: #c7d2fe;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid rgba(99, 102, 241, 0.25);
-    border-radius: 6px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    border-radius: 999px;
+    letter-spacing: 0.02em;
   }
 
   .listing-card-actions {
     display: grid;
     grid-template-columns: 44px 1fr 1fr;
-    gap: 12px;
+    gap: 14px;
     align-items: stretch;
   }
 
   .listing-btn {
     min-width: 0;
-    padding: 10px 12px;
-    font-size: 0.75rem;
+    padding: 12px 12px;
+    font-size: 0.8rem;
     font-family: inherit;
-    font-weight: 500;
-    border-radius: 10px;
+    font-weight: 600;
+    border-radius: 12px;
     cursor: pointer;
     transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
     white-space: nowrap;
     width: 100%;
-    min-height: 42px;
+    min-height: 46px;
   }
 
   .listing-btn:hover {
@@ -2226,7 +2745,7 @@
 
   .listing-btn-fav {
     width: 44px;
-    padding: 10px 0;
+    padding: 12px 0;
     background: transparent;
     border: 1px solid var(--border);
     color: var(--text-secondary);
@@ -2243,6 +2762,7 @@
     background: transparent;
     border: 1px solid var(--border);
     color: var(--text-secondary);
+    backdrop-filter: blur(8px);
   }
 
   .listing-btn-ghost:hover {
@@ -2255,6 +2775,7 @@
     border: none;
     color: #fff;
     box-shadow: 0 4px 14px var(--accent-glow);
+    letter-spacing: 0.01em;
   }
 
   .listing-btn-primary:hover {
@@ -2693,6 +3214,18 @@
       max-width: 100%;
     }
 
+    .page-view.active {
+      padding-bottom: 132px;
+    }
+
+    .chat-container {
+      padding-bottom: 132px;
+    }
+
+    .input-area {
+      padding: 12px 0 16px;
+    }
+
     .header-logo {
       width: 36px;
       height: 36px;
@@ -2738,7 +3271,7 @@
       pointer-events: auto;
     }
 
-    .bubble { max-width: 85%; }
+    .bubble { max-width: 92%; }
     #sendBtn { min-width: 72px; padding: 0 16px; }
     .compare-form {
       grid-template-columns: 1fr;
@@ -2759,7 +3292,7 @@
 
     .compare-table thead th:first-child { width: 80px; }
     .compare-table th, .compare-table td { padding: 10px 12px; font-size: 0.8125rem; }
-    .message-body { max-width: 85%; }
+    .message-body { max-width: 92%; }
     .notes-container { padding: 24px 16px; }
     .notes-form { padding: 18px; }
     .notes-form-grid { grid-template-columns: 1fr; }
@@ -2802,6 +3335,7 @@
       <button class="main-tab" type="button" data-tab="notes">看房笔记</button>
       <button class="main-tab" type="button" data-tab="favorites">收藏</button>
       <button class="main-tab" type="button" data-tab="news">资讯</button>
+      <button class="main-tab" type="button" data-tab="layout">户型评估</button>
     </nav>
   </div>
 
@@ -2846,17 +3380,36 @@
           <h2 class="listings-title">AI 房源推荐</h2>
           <span class="listings-badge" id="listingsCountBadge">0 套</span>
         </div>
-        <div class="listings-ai-reason" id="listingsAiReason" style="display: none;">
-          <div class="listings-ai-reason-label">✦ AI 推荐理由</div>
-          <p id="listingsAiReasonText"></p>
+        <div class="listings-layout">
+          <div class="listings-sidebar">
+            <div class="listings-panel">
+              <div class="listings-panel-title">✦ AI 推荐理由</div>
+              <p id="listingsAiReasonText" class="listings-panel-text"></p>
+            </div>
+            <div class="listings-panel">
+              <div class="listings-panel-title">✦ 推荐摘要</div>
+              <div class="listings-panel-list" id="listingsSummaryList"></div>
+            </div>
+            <div class="listings-panel">
+              <div class="listings-panel-title">✦ 快速筛选</div>
+              <div class="listings-filters">
+                <button class="listings-filter-btn active" type="button" data-listing-filter="all">全部</button>
+                <button class="listings-filter-btn" type="button" data-listing-filter="budget">预算优先</button>
+                <button class="listings-filter-btn" type="button" data-listing-filter="improve">改善置换</button>
+                <button class="listings-filter-btn" type="button" data-listing-filter="subway">地铁优先</button>
+              </div>
+            </div>
+          </div>
+          <div class="listings-main">
+            <div class="listings-empty" id="listingsEmpty">
+              <div class="listings-empty-icon">🏘️</div>
+              <p>暂无推荐房源</p>
+              <p style="margin-top: 8px; font-size: 0.8125rem;">在 AI 问答中提问买房需求，回复后将自动生成匹配房源</p>
+            </div>
+            <div class="listings-grid" id="listingsGrid"></div>
+          </div>
         </div>
       </div>
-      <div class="listings-empty" id="listingsEmpty">
-        <div class="listings-empty-icon">🏘️</div>
-        <p>暂无推荐房源</p>
-        <p style="margin-top: 8px; font-size: 0.8125rem;">在 AI 问答中提问买房需求，回复后将自动生成匹配房源</p>
-      </div>
-      <div class="listings-grid" id="listingsGrid"></div>
     </div>
   </div>
 
@@ -2982,6 +3535,34 @@
     </div>
   </div>
 
+  <div id="layoutView" class="page-view">
+    <div class="layout-container">
+      <div class="layout-header">
+        <div>
+          <h2 class="layout-title">户型评估</h2>
+          <p class="layout-subtitle">AI 根据户型基础信息给出评分、优缺点与改造建议</p>
+        </div>
+        <button class="layout-ai-btn" id="layoutAiBtn" type="button">AI评估</button>
+      </div>
+      <div class="layout-form-card">
+        <div class="layout-form-grid">
+          <div class="layout-field"><label for="layoutArea">面积（㎡）</label><input type="number" id="layoutArea" placeholder="例如：89" min="0" step="0.01"></div>
+          <div class="layout-field"><label for="layoutFacing">朝向</label><input type="text" id="layoutFacing" placeholder="例如：南北通透 / 朝南"></div>
+          <div class="layout-field"><label for="layoutFloor">楼层</label><input type="text" id="layoutFloor" placeholder="例如：中高层 / 8层/18层"></div>
+          <div class="layout-field"><label for="layoutRoom">户型格局</label><input type="text" id="layoutRoom" placeholder="例如：三室两厅一卫"></div>
+          <div class="layout-field"><label for="layoutCommunity">小区名称</label><input type="text" id="layoutCommunity" placeholder="例如：万科城市花园"></div>
+          <div class="layout-field"><label for="layoutYear">建筑年代</label><input type="text" id="layoutYear" placeholder="例如：2014年"></div>
+        </div>
+      </div>
+      <div class="layout-loading" id="layoutLoading">
+        <div class="typing-indicator"><span></span><span></span><span></span></div>
+        AI 正在评估户型，请稍候...
+      </div>
+      <div class="layout-error" id="layoutError"></div>
+      <div class="layout-result" id="layoutResult"></div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="listingModal">
     <div class="listing-detail-panel" id="listingDetailPanel"></div>
   </div>
@@ -3051,7 +3632,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
   /* ========== API 配置 ========== */
   const API_KEY = "sk-f2ac4dd7775c4afd81f5ba01a5167518";
@@ -3731,29 +4313,35 @@
   function renderListingsPage() {
     const grid = document.getElementById("listingsGrid");
     const empty = document.getElementById("listingsEmpty");
-    const reason = document.getElementById("listingsAiReason");
     const reasonText = document.getElementById("listingsAiReasonText");
     const badge = document.getElementById("listingsCountBadge");
+    const summaryList = document.getElementById("listingsSummaryList");
     if (!grid || !empty) return;
 
-    if (!latestPropertyRecs?.listings?.length) {
+    const recs = latestPropertyRecs?.listings || [];
+    if (!recs.length) {
       empty.style.display = "block";
       grid.innerHTML = "";
-      if (reason) reason.style.display = "none";
       if (badge) badge.textContent = "0 套";
+      if (reasonText) reasonText.textContent = "暂无推荐内容，请先在 AI 问答中提出购房需求。";
+      if (summaryList) summaryList.innerHTML = "";
       return;
     }
 
     empty.style.display = "none";
-    if (badge) badge.textContent = `${latestPropertyRecs.listings.length} 套`;
-    if (reason && reasonText) {
-      reason.style.display = "block";
-      reasonText.textContent = latestPropertyRecs.summary;
+    if (badge) badge.textContent = `${recs.length} 套`;
+    if (reasonText) reasonText.textContent = latestPropertyRecs.summary || "AI 根据您的需求生成了匹配推荐。";
+    if (summaryList) {
+      const totalAvg = Math.round(recs.reduce((sum, item) => sum + Number(item.matchScore || 0), 0) / recs.length);
+      const featured = recs.find((item) => item.featured) || recs[0];
+      const districts = [...new Set(recs.map((item) => item.district))].slice(0, 3);
+      summaryList.innerHTML = `
+        <div class="listings-panel-chip">平均匹配度 ${totalAvg}%</div>
+        <div class="listings-panel-chip">优先推荐 ${escapeHtml(featured.community || "精选房源")}</div>
+        <div class="listings-panel-chip">重点区域 ${districts.map(escapeHtml).join(" / ")}</div>`;
     }
 
-    grid.innerHTML = latestPropertyRecs.listings
-      .map((l) => buildListingCardHTML(l))
-      .join("");
+    grid.innerHTML = recs.map((l) => buildListingCardHTML(l)).join("");
     bindListingCardEvents(grid, latestPropertyRecs);
   }
 
@@ -3869,7 +4457,7 @@
           <span class="news-hot">${escapeHtml(item.hot || "热点")}</span>
         </div>
         <div class="news-card-body">
-          <span class="listing-tag" style="width: fit-content; margin-bottom: 2px;">${escapeHtml(item.tag || "资讯")}</span>
+          <span class="news-tag">${escapeHtml(item.tag || "资讯")}</span>
           <h3>${escapeHtml(item.title || `房产资讯 ${idx + 1}`)}</h3>
           <p>${escapeHtml(item.summary || "")}</p>
           <div class="news-card-footer">
@@ -3887,6 +4475,9 @@
     if (grid) grid.innerHTML = "";
     const prompt = "请生成8条最新房产资讯，返回JSON数组，每项包含title, summary, time, tag, hot, cover。cover请给出可访问的图片URL。内容简洁、真实感强、偏今日热点。";
     try {
+      if (!window.jspdf && !window.html2canvas) {
+        console.warn("layout view libs loaded");
+      }
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
@@ -3909,6 +4500,135 @@
     sendMessage(`请结合以下房产资讯做深度解读，并给出对购房者的影响和建议：\n\n标题：${title}\n摘要：${summary}`);
   }
 
+  const DEFAULT_LAYOUT_REPORT = {
+    score: 7,
+    strengths: ["南北通透时采光与通风表现较好", "中高层通常拥有更稳定的视野与私密性", "格局方正时家具布置效率更高"],
+    weaknesses: ["若存在暗厨暗卫会影响居住体验", "楼层过低可能受噪音与潮湿影响", "建筑年代偏老时需关注管线与保温"],
+    suggestions: ["优先优化收纳与动线，减少过道浪费", "如为小面积户型，可考虑打通非承重墙提升空间感", "重点关注厨房、卫生间与阳台的功能升级"],
+    crowd: ["刚需首套自住", "改善型家庭", "注重通风采光的长期自住买家"],
+    labels: ["刚需自住", "改善换房", "长期持有"],
+    metrics: {
+      lighting: 82,
+      ventilation: 78,
+      zoning: 74,
+      storage: 70,
+    },
+    scoreText: "综合来看，该户型具备较好的居住潜力，适合长期自住与轻改造提升。",
+  };
+
+  let lastLayoutData = null;
+
+  function renderLayoutResult(data = lastLayoutData || DEFAULT_LAYOUT_REPORT) {
+    const result = document.getElementById("layoutResult");
+    if (!result) return;
+    result.classList.add("show");
+    const score = clampScore((data?.score ?? 7) * 10) / 10;
+    const percent = Math.round((data?.score ?? 7) * 10);
+    const labels = data?.labels || DEFAULT_LAYOUT_REPORT.labels;
+    const metrics = data?.metrics || DEFAULT_LAYOUT_REPORT.metrics;
+    const metricItems = [
+      ["采光", metrics.lighting],
+      ["通风", metrics.ventilation],
+      ["动静分区", metrics.zoning],
+      ["收纳", metrics.storage],
+    ];
+    result.innerHTML = `
+      <div class="layout-score-card">
+        <div class="layout-score-ring" style="--score: ${percent}">
+          <div class="layout-score-ring-inner">
+            <span class="layout-score-value">${score.toFixed(1)}</span>
+            <span class="layout-score-label">户型评分</span>
+          </div>
+        </div>
+        <div class="layout-score-copy">
+          <h3>${escapeHtml(data?.scoreText || DEFAULT_LAYOUT_REPORT.scoreText)}</h3>
+          <p>根据面积、朝向、楼层、户型格局、小区名称与建筑年代综合评估。</p>
+        </div>
+      </div>
+      <div class="layout-label-row">
+        ${labels.map((label) => `<span class="layout-label-chip">${escapeHtml(label)}</span>`).join("")}
+      </div>
+      <div class="layout-metrics-grid">
+        ${metricItems.map(([name, value]) => `
+          <div class="layout-metric-card">
+            <div class="layout-metric-head">
+              <span class="layout-metric-name">${name}</span>
+              <span class="layout-metric-score">${clampScore(value ?? 70)}分</span>
+            </div>
+            <div class="layout-metric-bar"><div class="layout-metric-bar-fill" style="width: ${clampScore(value ?? 70)}%"></div></div>
+          </div>`).join("")}
+      </div>
+      <div class="layout-report-grid">
+        <div class="layout-report-card">
+          <h4>优点</h4>
+          <ul>${(data?.strengths || DEFAULT_LAYOUT_REPORT.strengths).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="layout-report-card">
+          <h4>缺点</h4>
+          <ul>${(data?.weaknesses || DEFAULT_LAYOUT_REPORT.weaknesses).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="layout-report-card">
+          <h4>改造建议</h4>
+          <ul>${(data?.suggestions || DEFAULT_LAYOUT_REPORT.suggestions).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="layout-report-card">
+          <h4>适合人群</h4>
+          <ul>${(data?.crowd || DEFAULT_LAYOUT_REPORT.crowd).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+      </div>`;
+  }
+
+  async function evaluateLayout() {
+    const payload = {
+      area: document.getElementById("layoutArea")?.value.trim(),
+      facing: document.getElementById("layoutFacing")?.value.trim(),
+      floor: document.getElementById("layoutFloor")?.value.trim(),
+      room: document.getElementById("layoutRoom")?.value.trim(),
+      community: document.getElementById("layoutCommunity")?.value.trim(),
+      year: document.getElementById("layoutYear")?.value.trim(),
+    };
+    const loading = document.getElementById("layoutLoading");
+    const error = document.getElementById("layoutError");
+    const result = document.getElementById("layoutResult");
+    if (!payload.area || !payload.facing || !payload.floor || !payload.room || !payload.community || !payload.year) {
+      error.textContent = "请完整填写户型信息后再进行评估。";
+      error.classList.add("show");
+      return;
+    }
+    error.classList.remove("show");
+    if (loading) loading.classList.add("show");
+    if (result) {
+      result.innerHTML = "";
+      result.classList.remove("show");
+    }
+    const prompt = `请根据以下户型信息生成评估报告，必须返回纯JSON，不要代码块，不要其他文字。格式：{"score":7.8,"strengths":["优点"],"weaknesses":["缺点"],"suggestions":["建议"],"crowd":["人群"],"labels":["适配标签"],"metrics":{"lighting":82,"ventilation":78,"zoning":74,"storage":70},"scoreText":"总结"}。信息：面积${payload.area}㎡，朝向${payload.facing}，楼层${payload.floor}，户型格局${payload.room}，小区名称${payload.community}，建筑年代${payload.year}。`;
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${API_KEY}` },
+        body: JSON.stringify({ model: MODEL, messages: [{ role: "system", content: "你是专业户型评估师，必须返回纯JSON。" }, { role: "user", content: prompt }] }),
+      });
+      const data = await response.json();
+      const text = data.choices?.[0]?.message?.content || "";
+      const cleaned = text.replace(/```json\s?|```/gi, "").trim();
+      const parsed = JSON.parse(cleaned);
+      lastLayoutData = {
+        ...DEFAULT_LAYOUT_REPORT,
+        ...parsed,
+        metrics: { ...DEFAULT_LAYOUT_REPORT.metrics, ...(parsed.metrics || {}) },
+        labels: Array.isArray(parsed.labels) && parsed.labels.length ? parsed.labels : DEFAULT_LAYOUT_REPORT.labels,
+      };
+      renderLayoutResult(lastLayoutData);
+    } catch (err) {
+      lastLayoutData = DEFAULT_LAYOUT_REPORT;
+      renderLayoutResult(DEFAULT_LAYOUT_REPORT);
+      error.textContent = err?.message ? `评估失败：${err.message}` : "评估失败，请稍后重试";
+      error.classList.add("show");
+    } finally {
+      if (loading) loading.classList.remove("show");
+    }
+  }
+
   document.getElementById("newsFilters")?.addEventListener("click", (e) => {
     const btn = e.target.closest(".news-filter-btn");
     if (!btn) return;
@@ -3916,6 +4636,8 @@
     document.querySelectorAll(".news-filter-btn").forEach((b) => b.classList.toggle("active", b === btn));
     renderNewsCards(newsState.items);
   });
+
+  document.getElementById("layoutAiBtn")?.addEventListener("click", evaluateLayout);
 
   if (typeof marked !== "undefined") {
     marked.setOptions({ breaks: true, gfm: true });
@@ -4349,6 +5071,7 @@
   loadLatestListings();
   initFeatureGrid();
   renderNewsCards();
+  renderLayoutResult();
   loadChat();
   questionInput.focus();
 
@@ -4554,6 +5277,7 @@
   const notesView = document.getElementById("notesView");
   const favoritesView = document.getElementById("favoritesView");
   const newsView = document.getElementById("newsView");
+  const layoutView = document.getElementById("layoutView");
   const headerSubtitle = document.getElementById("headerSubtitle");
   const mainTabs = document.querySelectorAll(".main-tab");
   const compareSubmit = document.getElementById("compareSubmit");
@@ -4575,6 +5299,7 @@
     notesView.classList.toggle("active", tab === "notes");
     favoritesView.classList.toggle("active", tab === "favorites");
     newsView.classList.toggle("active", tab === "news");
+    layoutView.classList.toggle("active", tab === "layout");
     clearBtn.style.display = tab === "chat" ? "" : "none";
     const subtitles = {
       chat: "智能解答您的房产疑问",
@@ -4584,6 +5309,7 @@
       notes: "记录房源，AI 智能分析",
       favorites: "收藏的 AI 问答记录",
       news: "AI 今日房产资讯",
+      layout: "户型结构与居住体验评估",
     };
     headerSubtitle.textContent = subtitles[tab] || subtitles.chat;
     if (tab === "chat") questionInput.focus();
@@ -4591,6 +5317,7 @@
     if (tab === "notes") renderNotes();
     if (tab === "listings") renderListingsPage();
     if (tab === "news") renderNewsCards();
+    if (tab === "layout") renderLayoutResult();
   }
 
   mainTabs.forEach((tab) => {
@@ -4622,6 +5349,66 @@
         winner: String(row?.winner || "A").toUpperCase() === "B" ? "B" : "A",
       };
     });
+  }
+
+  function hashString(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = (h << 5) - h + str.charCodeAt(i);
+      h |= 0;
+    }
+    return Math.abs(h);
+  }
+
+  function generateCompareFallback(cityA, cityB) {
+    const seed = hashString(`${cityA}-${cityB}`);
+    const baseA = 72 + (seed % 12);
+    const baseB = 72 + ((seed >> 3) % 12);
+    const rows = [
+      {
+        label: "限购政策",
+        cityA: `${cityA}当前限购力度${baseA > baseB ? "略宽松" : "相对严格"}，外地购房者需关注资格审核、社保年限和套数限制。`,
+        cityB: `${cityB}当前限购力度${baseB > baseA ? "略宽松" : "相对严格"}，外地购房者需关注资格审核、社保年限和套数限制。`,
+        winner: baseA >= baseB ? "A" : "B",
+      },
+      {
+        label: "首付比例",
+        cityA: `${cityA}首付比例整体处于${baseA >= baseB ? "更友好" : "正常"}水平，首套与改善需求差异较明显。`,
+        cityB: `${cityB}首付比例整体处于${baseB >= baseA ? "更友好" : "正常"}水平，首套与改善需求差异较明显。`,
+        winner: baseA >= baseB ? "A" : "B",
+      },
+      {
+        label: "落户要求",
+        cityA: `${cityA}落户政策相对清晰，部分片区与人才政策、购房资格联动，适合有长期定居规划的人群。`,
+        cityB: `${cityB}落户政策相对清晰，部分片区与人才政策、购房资格联动，适合有长期定居规划的人群。`,
+        winner: baseA >= baseB ? "A" : "B",
+      },
+      {
+        label: "房价水平",
+        cityA: `${cityA}房价水平整体${baseA >= baseB ? "更高" : "更具性价比"}，核心板块与外围板块分化明显。`,
+        cityB: `${cityB}房价水平整体${baseB >= baseA ? "更高" : "更具性价比"}，核心板块与外围板块分化明显。`,
+        winner: baseA <= baseB ? "A" : "B",
+      },
+      {
+        label: "配套资源",
+        cityA: `${cityA}的商业、地铁、教育和医疗配套成熟度较高，适合重视生活便利性的购房者。`,
+        cityB: `${cityB}的商业、地铁、教育和医疗配套成熟度较高，适合重视生活便利性的购房者。`,
+        winner: baseA >= baseB ? "A" : "B",
+      },
+      {
+        label: "适合人群",
+        cityA: `${cityA}更适合${baseA >= baseB ? "改善自住、长期持有" : "首套刚需、预算敏感"}人群。`,
+        cityB: `${cityB}更适合${baseB >= baseA ? "改善自住、长期持有" : "首套刚需、预算敏感"}人群。`,
+        winner: baseA >= baseB ? "A" : "B",
+      },
+    ];
+    return {
+      scoreA: baseA,
+      scoreB: baseB,
+      rows,
+      isFallback: true,
+      note: "当前接口暂时不可用，已展示本地模拟对比结果。",
+    };
   }
 
   function renderCompareCell(content, isWinner) {
@@ -4694,122 +5481,184 @@
   }
 
   async function callCompareAPI(cityA, cityB) {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: [
-          { role: "system", content: COMPARE_SYSTEM_PROMPT },
-          { role: "user", content: `请对比城市：${cityA} 和 ${cityB}` },
-        ],
-      }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.error?.message || `请求失败（${response.status}），请稍后重试`);
+    if (!API_KEY || !API_KEY.trim()) {
+      throw new Error("未配置 DeepSeek API Key，请检查代码中的 API_KEY 是否正确写入");
     }
 
-    const reply = data.choices?.[0]?.message?.content;
-    if (!reply) throw new Error("未收到有效回复，请重试");
-    return reply;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model: MODEL,
+          stream: false,
+          temperature: 0.2,
+          messages: [
+            { role: "system", content: COMPARE_SYSTEM_PROMPT },
+            { role: "user", content: `请对比城市：${cityA} 和 ${cityB}` },
+          ],
+        }),
+      });
+
+      const rawText = await response.text();
+      let data;
+      try {
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch {
+        throw new Error(`API 返回内容无法解析：${rawText.slice(0, 120)}`);
+      }
+
+      if (!response.ok) {
+        const apiMsg = data?.error?.message || data?.message || rawText || `请求失败（${response.status}）`;
+        throw new Error(apiMsg);
+      }
+
+      const reply = data.choices?.[0]?.message?.content;
+      if (!reply) throw new Error("未收到有效回复，请重试");
+      return reply;
+    } catch (error) {
+      if (error.name === "AbortError") {
+        throw new Error("请求超时，请稍后重试");
+      }
+      throw error;
+    } finally {
+      clearTimeout(timeoutId);
+    }
   }
 
-  function splitTextToLines(doc, text, maxWidth) {
-    return doc.splitTextToSize(String(text || ""), maxWidth);
+  function getPdfLibStatus() {
+    return {
+      html2canvas: typeof window.html2canvas === "function",
+      jsPDF: typeof window.jspdf !== "undefined" && typeof window.jspdf.jsPDF === "function",
+    };
   }
 
-  function exportComparePdf() {
+  function splitTextToLines(text, maxWidthPx) {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return [String(text || "")];
+    ctx.font = "14px -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif";
+    const lines = [];
+    let current = "";
+    String(text || "").split("").forEach((ch) => {
+      const test = current + ch;
+      if (ctx.measureText(test).width > maxWidthPx && current) {
+        lines.push(current);
+        current = ch;
+      } else {
+        current = test;
+      }
+    });
+    if (current) lines.push(current);
+    return lines.length ? lines : [String(text || "")];
+  }
+
+  async function exportComparePdf() {
     const state = getCompareReportState();
-    if (!state) return;
-    const { jsPDF } = window.jspdf || {};
-    if (!jsPDF) {
-      showListingToast("PDF 库加载失败，请稍后重试");
+    const target = compareResults;
+    if (!state || !target) return;
+
+    const libs = getPdfLibStatus();
+    if (!libs.html2canvas || !libs.jsPDF) {
+      const missing = [!libs.html2canvas ? "html2canvas" : null, !libs.jsPDF ? "jsPDF" : null].filter(Boolean).join("、");
+      showListingToast(`PDF 依赖加载失败：${missing}`);
       return;
     }
 
-    const doc = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 14;
-    const contentWidth = pageWidth - margin * 2;
-    const lineHeight = 6;
-    let y = 18;
+    let wrapper = null;
+    try {
+      exportPdfBtn.disabled = true;
+      exportPdfBtn.textContent = "导出中...";
+      showListingToast("正在生成PDF，请稍候...");
 
-    doc.setFillColor(15, 17, 23);
-    doc.rect(0, 0, pageWidth, pageHeight, "F");
-    doc.setTextColor(232, 234, 237);
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.text("城市对比报告", margin, y);
+      const title = `城市对比报告 - ${state.cityA} VS ${state.cityB}`;
+      const subtitle = `导出时间：${new Date().toLocaleString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}`;
 
-    y += 10;
-    doc.setFontSize(10);
-    doc.setTextColor(154, 160, 176);
-    doc.text(`对比城市：${state.cityA} VS ${state.cityB}`, margin, y);
-    y += 8;
+      const headerNode = document.createElement("div");
+      headerNode.className = "compare-pdf-header";
+      headerNode.innerHTML = `
+        <div class="compare-pdf-title">${escapeHtml(title)}</div>
+        <div class="compare-pdf-subtitle">${escapeHtml(subtitle)}</div>
+      `;
 
-    const scoreText = `综合评分：${state.cityA} ${state.scoreA} 分，${state.cityB} ${state.scoreB} 分`;
-    doc.setTextColor(232, 234, 237);
-    doc.text(scoreText, margin, y);
-    y += 10;
+      const clone = target.cloneNode(true);
+      clone.style.position = "relative";
+      clone.style.left = "0";
+      clone.style.top = "0";
+      clone.style.width = `${target.getBoundingClientRect().width}px`;
+      clone.style.maxHeight = "none";
+      clone.style.overflow = "visible";
+      clone.style.boxShadow = "none";
+      clone.style.borderRadius = "0";
+      clone.querySelectorAll("button").forEach((btn) => btn.remove());
 
-    const headers = ["对比项", state.cityA, state.cityB];
-    const colWidths = [32, (contentWidth - 32) / 2, (contentWidth - 32) / 2];
-    const tableX = margin;
+      wrapper = document.createElement("div");
+      wrapper.style.position = "fixed";
+      wrapper.style.left = "-10000px";
+      wrapper.style.top = "0";
+      wrapper.style.width = "auto";
+      wrapper.style.pointerEvents = "none";
+      wrapper.style.opacity = "1";
+      wrapper.style.visibility = "visible";
+      wrapper.style.zIndex = "-1";
+      wrapper.style.background = "#0f1117";
+      wrapper.style.padding = "24px";
+      wrapper.style.borderRadius = "0";
+      wrapper.appendChild(headerNode);
+      wrapper.appendChild(clone);
+      document.body.appendChild(wrapper);
 
-    const drawCell = (x, topY, width, lines, fill) => {
-      const height = Math.max(8, lines.length * lineHeight + 4);
-      doc.setFillColor(...fill);
-      doc.rect(x, topY, width, height, "F");
-      doc.setDrawColor(58, 64, 85);
-      doc.rect(x, topY, width, height);
-      doc.setTextColor(232, 234, 237);
-      doc.text(lines, x + 2, topY + 5);
-      return height;
-    };
+      await new Promise((resolve) => setTimeout(resolve, 50));
 
-    const headerHeights = headers.map((h, i) => splitTextToLines(doc, h, colWidths[i] - 4));
-    const headerHeight = Math.max(...headerHeights.map((l) => l.length * lineHeight + 4));
-    let rowY = y;
-    headers.forEach((h, i) => {
-      const lines = splitTextToLines(doc, h, colWidths[i] - 4);
-      drawCell(tableX + colWidths.slice(0, i).reduce((a, b) => a + b, 0), rowY, colWidths[i], lines, [34, 38, 51]);
-    });
-    y += headerHeight;
-
-    state.rows.forEach((row) => {
-      const values = [row.label, row.cityA, row.cityB];
-      const cellLines = values.map((v, i) => splitTextToLines(doc, v, colWidths[i] - 4));
-      const rowHeight = Math.max(...cellLines.map((l) => l.length * lineHeight + 4));
-      if (y + rowHeight > pageHeight - margin) {
-        doc.addPage();
-        doc.setFillColor(15, 17, 23);
-        doc.rect(0, 0, pageWidth, pageHeight, "F");
-        y = margin;
-      }
-      let x = tableX;
-      values.forEach((v, i) => {
-        const isLabel = i === 0;
-        const lines = splitTextToLines(doc, v, colWidths[i] - 4);
-        doc.setFillColor(isLabel ? 26 : 34, isLabel ? 29 : 38, isLabel ? 39 : 51);
-        doc.rect(x, y, colWidths[i], rowHeight, "F");
-        doc.setDrawColor(58, 64, 85);
-        doc.rect(x, y, colWidths[i], rowHeight);
-        doc.setTextColor(isLabel ? 154 : 232, isLabel ? 160 : 234, isLabel ? 176 : 237);
-        doc.text(lines, x + 2, y + 5);
-        x += colWidths[i];
+      const scale = Math.min(2, window.devicePixelRatio || 1.5);
+      const canvas = await window.html2canvas(wrapper, {
+        scale,
+        backgroundColor: "#0f1117",
+        useCORS: true,
+        allowTaint: false,
+        scrollY: 0,
+        windowWidth: wrapper.scrollWidth,
+        windowHeight: wrapper.scrollHeight,
       });
-      y += rowHeight;
-    });
 
-    const filename = `城市对比报告_${state.cityA}_vs_${state.cityB}.pdf`;
-    doc.save(filename);
-    showListingToast("PDF 报告已生成并下载");
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new window.jspdf.jsPDF({ orientation: canvas.width > canvas.height ? "l" : "p", unit: "pt", format: "a4" });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const margin = 24;
+      const usableWidth = pageWidth - margin * 2;
+      const imageWidth = usableWidth;
+      const imageHeight = (canvas.height * imageWidth) / canvas.width;
+      const pageContentHeight = pageHeight - margin * 2;
+      const totalPages = Math.max(1, Math.ceil(imageHeight / pageContentHeight));
+
+      for (let i = 0; i < totalPages; i++) {
+        if (i > 0) pdf.addPage();
+        pdf.setFillColor(15, 17, 23);
+        pdf.rect(0, 0, pageWidth, pageHeight, "F");
+        const sY = Math.floor((i * pageContentHeight * canvas.width) / imageWidth);
+        const sH = Math.floor((pageContentHeight * canvas.width) / imageWidth);
+        const dY = margin - i * pageContentHeight;
+        pdf.addImage(imgData, "PNG", margin, dY, imageWidth, imageHeight, undefined, "FAST", 0, sY, canvas.width, sH);
+      }
+
+      pdf.save(`城市对比报告_${state.cityA}_vs_${state.cityB}.pdf`);
+      showListingToast("PDF 报告已生成并下载");
+    } catch (err) {
+      const detail = err?.message ? `：${err.message}` : "";
+      showListingToast(`PDF 生成失败${detail}`);
+    } finally {
+      if (wrapper?.parentNode) wrapper.parentNode.removeChild(wrapper);
+      exportPdfBtn.disabled = false;
+      exportPdfBtn.textContent = "导出PDF报告";
+    }
   }
 
   async function startCompare() {
@@ -4836,6 +5685,7 @@
     isCompareLoading = true;
     compareSubmit.disabled = true;
     compareLoading.classList.add("show");
+    compareSubmit.textContent = "对比中...";
 
     try {
       const reply = await callCompareAPI(cityA, cityB);
@@ -4845,12 +5695,18 @@
       }
       renderCompareTable(cityA, cityB, parsed);
     } catch (err) {
-      compareError.textContent = err.message || "对比失败，请稍后重试";
+      const fallback = generateCompareFallback(cityA, cityB);
+      renderCompareTable(cityA, cityB, fallback);
+      compareError.textContent = `${err.message || "对比失败"}，已为您展示本地模拟结果`;
       compareError.classList.add("show");
+      compareError.style.borderColor = "rgba(251,191,36,0.35)";
+      compareError.style.background = "rgba(251,191,36,0.08)";
+      compareError.style.color = "#fde68a";
     } finally {
       isCompareLoading = false;
       compareSubmit.disabled = false;
       compareLoading.classList.remove("show");
+      compareSubmit.textContent = "开始对比";
     }
   }
 
